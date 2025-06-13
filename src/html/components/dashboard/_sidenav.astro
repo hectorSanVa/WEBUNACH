@@ -1,0 +1,54 @@
+---
+import {convertPathToHtml} from "../../../utils/index.js";
+const {path, mainPage, page} = Astro.props;
+const htmlPath = convertPathToHtml(path);
+---
+
+<!--begin::Sidebar-->
+<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark" style="background-color: #192D63;">
+  <!--begin::Sidebar Brand-->
+  <div class="sidebar-brand">
+    <a href={htmlPath + "/index.html"} class="brand-link">
+      <img src={path + "/img/logo-unach-azul.png"} alt="Logo UNACH" class="brand-image opacity-75 shadow" />
+      <span class="brand-text fw-bold" style="color: #D4B012;">FMH UNACH</span>
+    </a>
+  </div>
+  <!--end::Sidebar Brand-->
+  <div class="sidebar-wrapper">
+    <nav class="mt-2">
+      <ul class="nav sidebar-menu flex-column" role="menu">
+        <li class="nav-item">
+          <a href={htmlPath + "/index.html"} class:list={["nav-link", mainPage === "inicio" && "active"]}>
+            <i class="nav-icon bi bi-house-door-fill" style="color: #D4B012;"></i>
+            <p>Inicio</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href={htmlPath + "/buzon.html"} class:list={["nav-link", mainPage === "buzon" && "active"]}>
+            <i class="nav-icon bi bi-inbox-fill" style="color: #D4B012;"></i>
+            <p>Buzón</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href={htmlPath + "/seguimiento.html"} class:list={["nav-link", mainPage === "seguimiento" && "active"]}>
+            <i class="nav-icon bi bi-list-check" style="color: #D4B012;"></i>
+            <p>Seguimiento</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href={htmlPath + "/reconocimientos.html"} class:list={["nav-link", mainPage === "reconocimientos" && "active"]}>
+            <i class="nav-icon bi bi-star-fill" style="color: #D4B012;"></i>
+            <p>Reconocimientos</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href={htmlPath + "/contacto.html"} class:list={["nav-link", mainPage === "contacto" && "active"]}>
+            <i class="nav-icon bi bi-envelope-fill" style="color: #D4B012;"></i>
+            <p>Contacto</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
+<!--end::Sidebar-->

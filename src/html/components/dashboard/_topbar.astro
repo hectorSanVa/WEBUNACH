@@ -1,0 +1,19 @@
+---
+const { path } = Astro.props;
+const distPath = path;
+---
+
+<!--begin::Header-->
+<nav class="app-header navbar navbar-expand" style="background-color: #192D63;">
+  <div class="container-fluid">
+    <div class="d-flex align-items-center w-100">
+      <img src={path + "/img/logo-unach-azul.png"} alt="Logo UNACH" style="max-width: 48px; margin-right: 16px;" />
+      <div class="flex-grow-1 text-center">
+        <span class="fw-bold" style="color: #D4B012; font-size: 1.3rem;">Facultad de Medicina Humana "Dr. Manuel Velasco Suárez"</span><br />
+        <span class="fw-light text-white" style="font-size: 1rem;">Educación que transforma</span>
+      </div>
+      <img src={path + "/img/jubileo50.png"} alt="Jubileo 50 años" style="max-width: 48px; margin-left: 16px;" />
+    </div>
+  </div>
+</nav>
+<!--end::Header-->

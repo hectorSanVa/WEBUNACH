@@ -1,0 +1,76 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import Sidenav from "@components/dashboard/_sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Buzón de Quejas y Sugerencias | FMH UNACH";
+const path = "../../dist";
+const mainPage = "buzon";
+const page = "index";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <Sidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <!-- Aquí puedes poner el logo principal -->
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Buzón de Quejas, Sugerencias y Reconocimientos</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <!-- Aquí puedes poner el logo de la campaña o aniversario -->
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-10">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h4 class="mb-3">Justificación</h4>
+                    <p>La presente propuesta nace de los resultados de la Auditoría realizada a esta Unidad académica y de las recomendaciones recibidas en el proceso de acreditación de la Licenciatura en Médico Cirujano Plan de estudios 2013, por el organismo acreditador (COMAEM); alineados a la política de calidad institucional específicamente con los objetivos de Calidad educativa, Responsabilidad social universitaria y Gestión y evaluación institucional.</p>
+                    <p>Establecer un mecanismo eficiente, transparente y confidencial para la recolección, gestión y resolución de quejas y sugerencias por parte de estudiantes, docentes y personal administrativo de la Unidad Académica, en congruencia con la política de calidad institucional para la mejora continua con respeto a los derechos humanos y en apego a la legislación universitaria.</p>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h4 class="mb-3">Formulario de Quejas y Sugerencias</h4>
+                    <!-- Aquí irá el diseño del formulario (solo visual por ahora) -->
+                    <div class="alert alert-info">Próximamente: Formulario digital basado en el formato oficial.</div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h4 class="mb-3">Seguimiento de Quejas y Sugerencias</h4>
+                    <!-- Aquí irá la tabla de seguimiento (solo visual por ahora) -->
+                    <div class="alert alert-secondary">Próximamente: Tabla de seguimiento de casos.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+  </body>
+</html>
