@@ -1,0 +1,227 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import Sidenav from "@components/dashboard/_sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Buzón de Quejas y Sugerencias | FMH UNACH";
+const path = "../../dist";
+const mainPage = "buzon";
+const page = "buzon";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <Sidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Buzón de Quejas, Sugerencias y Reconocimientos</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-10">
+                <div class="card mb-4">
+                  <div class="card-body text-center">
+                    <h4 class="mb-3">¡Tu voz es importante!</h4>
+                    <p class="lead">Este es un espacio seguro y confidencial para que puedas expresarte.</p>
+                    <hr>
+                    <p>Para ayudarnos a gestionar tu solicitud, por favor selecciona el tipo de mensaje que deseas enviar:</p>
+                    <div class="row text-start">
+                      <div class="col-md-4">
+                        <div class="p-3">
+                          <h5>✔️ Queja</h5>
+                          <p class="small">Reportar una inconformidad o un problema que necesita atención.</p>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="p-3">
+                          <h5>💡 Sugerencia</h5>
+                          <p class="small">Proponer una idea para mejorar algún aspecto de la facultad.</p>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="p-3">
+                          <h5>⭐ Reconocimiento</h5>
+                          <p class="small">Destacar una acción positiva o el buen trabajo de alguien.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h4 class="mb-0">Formulario de Quejas y Sugerencias</h4>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <!-- DATOS DEL REMITENTE -->
+                      <h5 class="mb-3">Datos del Remitente</h5>
+                      <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                          <label for="nombre" class="form-label">Nombre (Opcional)</label>
+                          <input type="text" class="form-control" id="nombre" placeholder="Tu nombre completo">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="correo" class="form-label">Correo electrónico</label>
+                          <input type="email" class="form-control" id="correo" placeholder="tucorreo@ejemplo.com">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="adscripcion" class="form-label">Semestre/Área de adscripción</label>
+                          <input type="text" class="form-control" id="adscripcion">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="telefono" class="form-label">Teléfono (Opcional)</label>
+                          <input type="tel" class="form-control" id="telefono">
+                        </div>
+                      </div>
+                      <div class="row g-3 mb-3">
+                        <div class="col-md-7">
+                          <label class="form-label d-block">Tipo de usuario:</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoUsuario" id="estudiante">
+                            <label class="form-check-label" for="estudiante">Estudiante</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoUsuario" id="docente">
+                            <label class="form-check-label" for="docente">Personal Docente</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipoUsuario" id="administrativo">
+                            <label class="form-check-label" for="administrativo">Personal Administrativo</label>
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <label class="form-label d-block">Sexo:</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sexo" id="mujer">
+                            <label class="form-check-label" for="mujer">Mujer</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sexo" id="hombre">
+                            <label class="form-check-label" for="hombre">Hombre</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sexo" id="no-responder">
+                            <label class="form-check-label" for="no-responder">Prefiero no responder</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="confidencial">
+                        <label class="form-check-label" for="confidencial">Deseo que mi identidad sea confidencial</label>
+                      </div>
+                      <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="autorizoContacto">
+                        <label class="form-check-label" for="autorizoContacto">Autorizo que me contacten para dar seguimiento a mi caso</label>
+                      </div>
+                      <hr>
+
+                      <!-- TIPO Y DETALLES -->
+                      <h5 class="mb-3">Tipo y Detalles de la Comunicación</h5>
+                      <div class="mb-3">
+                        <label class="form-label d-block">Tipo de Comunicación:</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="tipoComunicacion" id="queja">
+                          <label class="form-check-label" for="queja">Queja</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="tipoComunicacion" id="sugerencia">
+                          <label class="form-check-label" for="sugerencia">Sugerencia</label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label d-block">Categoría:</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="categoria" id="infraestructura">
+                          <label class="form-check-label" for="infraestructura">Infraestructura</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="categoria" id="academico">
+                          <label class="form-check-label" for="academico">Asuntos académicos</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="categoria" id="administrativos">
+                          <label class="form-check-label" for="administrativos">Asuntos administrativos</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="categoria" id="convivencia">
+                          <label class="form-check-label" for="convivencia">Convivencia</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="categoria" id="transporte">
+                          <label class="form-check-label" for="transporte">Transporte</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="categoria" id="otro">
+                          <label class="form-check-label" for="otro">Otro</label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción de hechos:</label>
+                        <textarea class="form-control" id="descripcion" rows="5" placeholder="Describe detalladamente la situación..."></textarea>
+                      </div>
+                      <div class="mb-4">
+                        <label for="propuesta" class="form-label">Propuesta de mejora (Opcional):</label>
+                        <textarea class="form-control" id="propuesta" rows="3"></textarea>
+                      </div>
+                      <hr>
+
+                      <!-- EVIDENCIA Y FIRMA -->
+                      <h5 class="mb-3">Evidencia y Cierre</h5>
+                      <div class="alert alert-secondary">
+                        Si considera necesario, envíe fotos, documentos o cualquier evidencia al correo <strong>quejasysugerenciasfmht@unach.mx</strong>.
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label d-block">¿Se adjunta evidencia?</label>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="adjuntaEvidencia" id="siEvidencia">
+                          <label class="form-check-label" for="siEvidencia">Sí</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="adjuntaEvidencia" id="noEvidencia">
+                          <label class="form-check-label" for="noEvidencia">No</label>
+                        </div>
+                      </div>
+                      <div class="mb-4">
+                        <label for="firma" class="form-label">Firma del remitente (Opcional, puede escribir su nombre)</label>
+                        <input type="text" class="form-control" id="firma">
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100" disabled>Enviar Formulario (solo visual)</button>
+                    </form>
+                    <div class="alert alert-info mt-3 small">
+                      <strong>Nota:</strong> Todas las quejas y sugerencias serán atendidas conforme al protocolo establecido por la Facultad de Medicina, garantizando la confidencialidad y el respeto a los derechos de los involucrados. Para dar seguimiento a su caso, puede comunicarse al correo: <strong>quejasysugerenciasfmht@unach.mx</strong>.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+  </body>
+</html> 

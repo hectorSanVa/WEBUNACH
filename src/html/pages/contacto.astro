@@ -1,0 +1,65 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import Sidenav from "@components/dashboard/_sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Contacto | FMH UNACH";
+const path = "../../dist";
+const mainPage = "contacto"; // <-- Aquí se indica la página activa
+const page = "contacto";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <Sidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <h2 class="mb-2">Contacto</h2>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-8 col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <form>
+                      <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre completo</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="correo" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="correo" placeholder="tucorreo@ejemplo.com" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100" disabled>Enviar (solo visual)</button>
+                    </form>
+                    <div class="alert alert-info mt-3">
+                      <strong>Nota:</strong> Este formulario es solo visual. No envía información real.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+  </body>
+</html> 

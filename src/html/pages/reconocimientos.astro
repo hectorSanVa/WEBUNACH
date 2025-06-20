@@ -1,0 +1,78 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import Sidenav from "@components/dashboard/_sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Reconocimientos | FMH UNACH";
+const path = "../../dist";
+const mainPage = "reconocimientos"; // <-- Aquí se indica la página activa
+const page = "reconocimientos";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <Sidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <h2 class="mb-2">Reconocimientos</h2>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-10">
+                <div class="row g-4">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                      <div class="card-body text-center">
+                        <img src="/dist/img/avatar1.png" alt="Avatar" class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Dra. Ana López</h5>
+                        <p class="card-text text-muted mb-2">Docente destacada</p>
+                        <div class="alert alert-success p-2 mb-0">Por su dedicación y excelencia académica</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                      <div class="card-body text-center">
+                        <img src="/dist/img/avatar2.png" alt="Avatar" class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Juan Pérez</h5>
+                        <p class="card-text text-muted mb-2">Estudiante ejemplar</p>
+                        <div class="alert alert-primary p-2 mb-0">Por su participación en proyectos sociales</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                      <div class="card-body text-center">
+                        <img src="/dist/img/avatar3.png" alt="Avatar" class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
+                        <h5 class="card-title mb-1">Mtra. Sofía Ramírez</h5>
+                        <p class="card-text text-muted mb-2">Reconocimiento especial</p>
+                        <div class="alert alert-warning p-2 mb-0">Por innovación en métodos de enseñanza</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="alert alert-info mt-4 text-center">
+                  <strong>Nota:</strong> Esta galería es solo un ejemplo visual. Aquí aparecerán los reconocimientos reales.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+  </body>
+</html> 

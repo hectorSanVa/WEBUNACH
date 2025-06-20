@@ -1,0 +1,116 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import Sidenav from "@components/dashboard/_sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Seguimiento | FMH UNACH";
+const path = "../../dist";
+const mainPage = "seguimiento"; // <-- Aquí se indica la página activa
+const page = "seguimiento";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <Sidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <h2 class="mb-2">Seguimiento de Quejas y Sugerencias</h2>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-10">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h4 class="mb-0">Concentrado de Seguimiento de Quejas y Sugerencias</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-light text-center">
+                          <tr>
+                            <th>Folio</th>
+                            <th>Fecha de Recepción</th>
+                            <th>Tipo (Queja/Sugerencia)</th>
+                            <th>Categoría</th>
+                            <th>Estado</th>
+                            <th>Fecha de Resolución</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>FI/001/01/2025</td>
+                            <td>DD/MM/AAAA</td>
+                            <td>Queja</td>
+                            <td>Infraestructura</td>
+                            <td><span class="badge bg-warning text-dark">En Proceso</span></td>
+                            <td>DD/MM/AAAA</td>
+                          </tr>
+                          <tr>
+                            <td>D-002</td>
+                            <td>DD/MM/AAAA</td>
+                            <td>Sugerencia</td>
+                            <td>Asunto académico</td>
+                            <td><span class="badge bg-primary">Atendida</span></td>
+                            <td>DD/MM/AAAA</td>
+                          </tr>
+                          <tr>
+                            <td>3</td>
+                            <td>DD/MM/AAAA</td>
+                            <td>Queja</td>
+                            <td>Asunto administrativo</td>
+                            <td><span class="badge bg-success">Cerrada</span></td>
+                            <td>DD/MM/AAAA</td>
+                          </tr>
+                          <tr>
+                            <td>4</td>
+                            <td>DD/MM/AAAA</td>
+                            <td>Sugerencia</td>
+                            <td>Transporte</td>
+                            <td><span class="badge bg-secondary">Pendiente</span></td>
+                            <td>DD/MM/AAAA</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <h5>Leyenda de Estado:</h5>
+                    <ul>
+                      <li><strong>Pendiente (P):</strong> La queja/sugerencia ha sido registrada, pero aún no se ha revisado.</li>
+                      <li><strong>En Proceso (EP):</strong> Se están tomando acciones para evaluar y resolver el caso.</li>
+                      <li><strong>Atendida (A):</strong> Se ha dado respuesta y/o solución al caso.</li>
+                      <li><strong>Cerrada (C):</strong> El caso ha sido concluido y archivado.</li>
+                    </ul>
+                    <hr>
+                    <h5>Notas Adicionales:</h5>
+                    <ul>
+                      <li>Este documento debe ser actualizado periódicamente por la comisión encargada de la gestión de quejas y sugerencias.</li>
+                      <li>Se recomienda generar informes trimestrales sobre el avance y efectividad del sistema.</li>
+                      <li>La información contenida en este concentrado debe ser tratada con confidencialidad y conforme a las normativas de protección de datos de la Facultad de Medicina Humana Campus IV.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+  </body>
+</html> 
