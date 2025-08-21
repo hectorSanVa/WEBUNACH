@@ -121,7 +121,12 @@
                   <p>Gestión de Sugerencias</p>
                 </a>
               </li>
-
+              <li class="nav-item">
+                <a href="../admin/reconocimientos.html" class="nav-link">
+                  <i class="nav-icon bi bi-star-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Reconocimientos</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="../admin/usuarios.html" class="nav-link">
                   <i class="nav-icon bi bi-people-fill" style="color: #d4b012"></i>
@@ -142,7 +147,7 @@
               </li>
               <hr style="border-color: #d4b012; opacity: 0.3" />
               <li class="nav-item">
-                <a href="/sitio" class="nav-link">
+                <a href="../index.html" class="nav-link">
                   <i class="nav-icon bi bi-house-door-fill" style="color: #d4b012"></i>
                   <p>Volver al Sitio</p>
                 </a>
@@ -220,7 +225,19 @@
                   </div>
                 </div>
               </div>
-
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="totalReconocimientos">0</h3>
+                        <p class="mb-0">Total Reconocimientos</p>
+                      </div>
+                      <div class="align-self-center"><i class="bi bi-star-fill fs-1"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="col-xl-3 col-md-6">
                 <div class="card bg-info text-white">
                   <div class="card-body">
@@ -351,14 +368,15 @@
       const t = {
         quejas: 15,
         sugerencias: 8,
+        reconocimientos: 12,
         pendientes: 5,
         activity: [
-          { date: '2024-01-15', quejas: 3, sugerencias: 1 },
-          { date: '2024-01-16', quejas: 2, sugerencias: 2 },
-          { date: '2024-01-17', quejas: 4, sugerencias: 0 },
-          { date: '2024-01-18', quejas: 1, sugerencias: 3 },
-          { date: '2024-01-19', quejas: 2, sugerencias: 1 },
-          { date: '2024-01-20', quejas: 3, sugerencias: 1 },
+          { date: '2024-01-15', quejas: 3, sugerencias: 1, reconocimientos: 2 },
+          { date: '2024-01-16', quejas: 2, sugerencias: 2, reconocimientos: 1 },
+          { date: '2024-01-17', quejas: 4, sugerencias: 0, reconocimientos: 3 },
+          { date: '2024-01-18', quejas: 1, sugerencias: 3, reconocimientos: 1 },
+          { date: '2024-01-19', quejas: 2, sugerencias: 1, reconocimientos: 2 },
+          { date: '2024-01-20', quejas: 3, sugerencias: 1, reconocimientos: 3 },
         ],
         recentEntries: [
           {
@@ -377,7 +395,14 @@
             fecha: '2024-01-19',
             estado: 'En Revisión',
           },
-
+          {
+            folio: 'RC-2024-003',
+            tipo: 'Reconocimiento',
+            remitente: 'Carlos Ruiz',
+            asunto: 'Excelente atención del Dr. García',
+            fecha: '2024-01-18',
+            estado: 'Aprobado',
+          },
           {
             folio: 'QJ-2024-004',
             tipo: 'Queja',
@@ -398,6 +423,7 @@
       };
       document.getElementById('totalQuejas').textContent = t.quejas;
       document.getElementById('totalSugerencias').textContent = t.sugerencias;
+      document.getElementById('totalReconocimientos').textContent = t.reconocimientos;
       document.getElementById('pendientes').textContent = t.pendientes;
       const a = document.querySelector('#recentEntriesTable tbody');
       t.recentEntries.forEach((e) => {
@@ -426,7 +452,8 @@
             return 'bg-danger';
           case 'Sugerencia':
             return 'bg-success';
-
+          case 'Reconocimiento':
+            return 'bg-warning';
           default:
             return 'bg-secondary';
         }

@@ -61,7 +61,7 @@
         <div class="card-body login-card-body">
           <h4 class="text-center mb-3" style="color: #192d63">Panel de Administración</h4>
           <p class="login-box-msg">Inicia sesión para acceder al panel de control</p>
-          <form action="../admin/dashboard.html" method="post" id="loginForm">
+          <form action="/admin/dashboard" method="post" id="loginForm">
             <div class="input-group mb-3">
               <input
                 type="text"
@@ -156,7 +156,7 @@
         e === 'admin' && t === 'admin123'
           ? (localStorage.setItem('adminLoggedIn', 'true'),
             localStorage.setItem('adminUser', e),
-            (window.location.href = '../admin/dashboard.html'))
+            (window.location.href = '/admin/dashboard'))
           : alert('Credenciales incorrectas. Usuario: admin, Contraseña: admin123');
       });
     </script>
