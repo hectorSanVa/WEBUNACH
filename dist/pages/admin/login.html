@@ -152,8 +152,8 @@
       document.getElementById('loginForm').addEventListener('submit', function (n) {
         n.preventDefault();
         const e = document.getElementById('username').value,
-          t = document.getElementById('password').value;
-        e === 'admin' && t === 'admin123'
+          a = document.getElementById('password').value;
+        e === 'admin' && a === 'admin123'
           ? (localStorage.setItem('adminLoggedIn', 'true'),
             localStorage.setItem('adminUser', e),
             (window.location.href = '/admin/dashboard'))

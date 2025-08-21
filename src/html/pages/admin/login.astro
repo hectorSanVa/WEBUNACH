@@ -27,7 +27,7 @@ const htmlPath = "..";
           <h4 class="text-center mb-3" style="color: #192D63;">Panel de Administración</h4>
           <p class="login-box-msg">Inicia sesión para acceder al panel de control</p>
 
-          <form action={htmlPath + "/admin/dashboard.html"} method="post" id="loginForm">
+          <form action="/admin/dashboard" method="post" id="loginForm">
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Usuario" id="username" required />
               <div class="input-group-text">
@@ -85,7 +85,7 @@ const htmlPath = "..";
           localStorage.setItem('adminUser', username);
           
           // Redirigir al dashboard
-          window.location.href = '../admin/dashboard.html';
+          window.location.href = '/admin/dashboard';
         } else {
           alert('Credenciales incorrectas. Usuario: admin, Contraseña: admin123');
         }

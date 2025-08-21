@@ -8,7 +8,7 @@ const htmlPath = convertPathToHtml(path);
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark" style="background-color: #192D63;">
   <!--begin::Sidebar Brand-->
   <div class="sidebar-brand">
-    <a href={htmlPath + "/admin/dashboard.html"} class="brand-link">
+    <a href="/admin/dashboard" class="brand-link">
       <img src={path + "/img/logo-unach-azul.png"} alt="Logo UNACH" class="brand-image opacity-75 shadow" />
       <span class="brand-text fw-bold" style="color: #D4B012;">ADMIN UNACH</span>
     </a>
@@ -18,50 +18,50 @@ const htmlPath = convertPathToHtml(path);
     <nav class="mt-2">
       <ul class="nav sidebar-menu flex-column" role="menu">
         <li class="nav-item">
-          <a href={htmlPath + "/admin/dashboard.html"} class:list={["nav-link", mainPage === "dashboard" && "active"]}>
+          <a href="/admin/dashboard" class:list={["nav-link", mainPage === "dashboard" && "active"]}>
             <i class="nav-icon bi bi-speedometer2" style="color: #D4B012;"></i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href={htmlPath + "/admin/quejas.html"} class:list={["nav-link", mainPage === "quejas" && "active"]}>
+          <a href="/admin/quejas" class:list={["nav-link", mainPage === "quejas" && "active"]}>
             <i class="nav-icon bi bi-exclamation-triangle-fill" style="color: #D4B012;"></i>
             <p>Gestión de Quejas</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href={htmlPath + "/admin/sugerencias.html"} class:list={["nav-link", mainPage === "sugerencias" && "active"]}>
+          <a href="/admin/sugerencias" class:list={["nav-link", mainPage === "sugerencias" && "active"]}>
             <i class="nav-icon bi bi-lightbulb-fill" style="color: #D4B012;"></i>
             <p>Gestión de Sugerencias</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href={htmlPath + "/admin/reconocimientos.html"} class:list={["nav-link", mainPage === "reconocimientos" && "active"]}>
+          <a href="/admin/reconocimientos" class:list={["nav-link", mainPage === "reconocimientos" && "active"]}>
             <i class="nav-icon bi bi-star-fill" style="color: #D4B012;"></i>
             <p>Gestión de Reconocimientos</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href={htmlPath + "/admin/usuarios.html"} class:list={["nav-link", mainPage === "usuarios" && "active"]}>
+          <a href="/admin/usuarios" class:list={["nav-link", mainPage === "usuarios" && "active"]}>
             <i class="nav-icon bi bi-people-fill" style="color: #D4B012;"></i>
             <p>Gestión de Usuarios</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href={htmlPath + "/admin/reportes.html"} class:list={["nav-link", mainPage === "reportes" && "active"]}>
+          <a href="/admin/reportes" class:list={["nav-link", mainPage === "reportes" && "active"]}>
             <i class="nav-icon bi bi-graph-up" style="color: #D4B012;"></i>
             <p>Reportes y Estadísticas</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href={htmlPath + "/admin/configuracion.html"} class:list={["nav-link", mainPage === "configuracion" && "active"]}>
+          <a href="/admin/configuracion" class:list={["nav-link", mainPage === "configuracion" && "active"]}>
             <i class="nav-icon bi bi-gear-fill" style="color: #D4B012;"></i>
             <p>Configuración</p>
           </a>
         </li>
         <hr style="border-color: #D4B012; opacity: 0.3;">
         <li class="nav-item">
-          <a href={htmlPath + "/index.html"} class="nav-link">
+          <a href="/" class="nav-link">
             <i class="nav-icon bi bi-house-door-fill" style="color: #D4B012;"></i>
             <p>Volver al Sitio</p>
           </a>
@@ -84,7 +84,7 @@ const htmlPath = convertPathToHtml(path);
     if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
       localStorage.removeItem('adminLoggedIn');
       localStorage.removeItem('adminUser');
-      window.location.href = '../admin/login.html';
+      window.location.href = '/admin/login';
     }
   });
 </script> 
