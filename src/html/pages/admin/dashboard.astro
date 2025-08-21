@@ -1,0 +1,270 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import AdminSidenav from "@components/admin/_admin-sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Dashboard Administrativo | FMH UNACH";
+const path = "../../../dist";
+const mainPage = "dashboard";
+const page = "dashboard";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <AdminSidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Panel de Administración</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Tarjetas de Estadísticas -->
+            <div class="row g-4 mb-4">
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="totalQuejas">0</h3>
+                        <p class="mb-0">Total Quejas</p>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="totalSugerencias">0</h3>
+                        <p class="mb-0">Total Sugerencias</p>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="bi bi-lightbulb-fill fs-1"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="totalReconocimientos">0</h3>
+                        <p class="mb-0">Total Reconocimientos</p>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="bi bi-star-fill fs-1"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-info text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="pendientes">0</h3>
+                        <p class="mb-0">Pendientes</p>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="bi bi-clock-fill fs-1"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gráficos y Tablas -->
+            <div class="row g-4">
+              <!-- Gráfico de Actividad -->
+              <div class="col-lg-8">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Actividad Reciente</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="activityChart" width="400" height="200"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Actividad Reciente -->
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Actividad Reciente</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="timeline" id="recentActivity">
+                      <!-- Se llenará dinámicamente -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla de Últimas Entradas -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Últimas Entradas del Buzón</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped" id="recentEntriesTable">
+                        <thead>
+                          <tr>
+                            <th>Folio</th>
+                            <th>Tipo</th>
+                            <th>Remitente</th>
+                            <th>Asunto</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- Se llenará dinámicamente -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+
+      // Datos de ejemplo (en producción vendrían de una API)
+      const mockData = {
+        quejas: 15,
+        sugerencias: 8,
+        reconocimientos: 12,
+        pendientes: 5,
+        activity: [
+          { date: '2024-01-15', quejas: 3, sugerencias: 1, reconocimientos: 2 },
+          { date: '2024-01-16', quejas: 2, sugerencias: 2, reconocimientos: 1 },
+          { date: '2024-01-17', quejas: 4, sugerencias: 0, reconocimientos: 3 },
+          { date: '2024-01-18', quejas: 1, sugerencias: 3, reconocimientos: 1 },
+          { date: '2024-01-19', quejas: 2, sugerencias: 1, reconocimientos: 2 },
+          { date: '2024-01-20', quejas: 3, sugerencias: 1, reconocimientos: 3 }
+        ],
+        recentEntries: [
+          { folio: 'QJ-2024-001', tipo: 'Queja', remitente: 'Anónimo', asunto: 'Problema con el aire acondicionado', fecha: '2024-01-20', estado: 'Pendiente' },
+          { folio: 'SG-2024-002', tipo: 'Sugerencia', remitente: 'María López', asunto: 'Mejora en la biblioteca', fecha: '2024-01-19', estado: 'En Revisión' },
+          { folio: 'RC-2024-003', tipo: 'Reconocimiento', remitente: 'Carlos Ruiz', asunto: 'Excelente atención del Dr. García', fecha: '2024-01-18', estado: 'Aprobado' },
+          { folio: 'QJ-2024-004', tipo: 'Queja', remitente: 'Anónimo', asunto: 'Falta de material en laboratorio', fecha: '2024-01-17', estado: 'Pendiente' },
+          { folio: 'SG-2024-005', tipo: 'Sugerencia', remitente: 'Ana Martínez', asunto: 'Nuevos horarios de consulta', fecha: '2024-01-16', estado: 'En Revisión' }
+        ]
+      };
+
+      // Actualizar estadísticas
+      document.getElementById('totalQuejas').textContent = mockData.quejas;
+      document.getElementById('totalSugerencias').textContent = mockData.sugerencias;
+      document.getElementById('totalReconocimientos').textContent = mockData.reconocimientos;
+      document.getElementById('pendientes').textContent = mockData.pendientes;
+
+      // Llenar tabla de entradas recientes
+      const tableBody = document.querySelector('#recentEntriesTable tbody');
+      mockData.recentEntries.forEach(entry => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${entry.folio}</td>
+          <td><span class="badge ${getBadgeClass(entry.tipo)}">${entry.tipo}</span></td>
+          <td>${entry.remitente}</td>
+          <td>${entry.asunto}</td>
+          <td>${entry.fecha}</td>
+          <td><span class="badge ${getStatusBadgeClass(entry.estado)}">${entry.estado}</span></td>
+          <td>
+            <button class="btn btn-sm btn-primary" onclick="viewEntry('${entry.folio}')">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-success" onclick="editEntry('${entry.folio}')">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      function getBadgeClass(tipo) {
+        switch(tipo) {
+          case 'Queja': return 'bg-danger';
+          case 'Sugerencia': return 'bg-success';
+          case 'Reconocimiento': return 'bg-warning';
+          default: return 'bg-secondary';
+        }
+      }
+
+      function getStatusBadgeClass(estado) {
+        switch(estado) {
+          case 'Pendiente': return 'bg-warning';
+          case 'En Revisión': return 'bg-info';
+          case 'Aprobado': return 'bg-success';
+          case 'Rechazado': return 'bg-danger';
+          default: return 'bg-secondary';
+        }
+      }
+
+      function viewEntry(folio) {
+        alert(`Ver detalles de: ${folio}`);
+        // Aquí iría la lógica para ver los detalles
+      }
+
+      function editEntry(folio) {
+        alert(`Editar: ${folio}`);
+        // Aquí iría la lógica para editar
+      }
+
+      // Gráfico de actividad (simulado)
+      const ctx = document.getElementById('activityChart').getContext('2d');
+      // En una implementación real, aquí se usaría Chart.js o similar
+      ctx.fillStyle = '#f0f0f0';
+      ctx.fillRect(0, 0, 400, 200);
+      ctx.fillStyle = '#192D63';
+      ctx.font = '16px Arial';
+      ctx.fillText('Gráfico de Actividad (Simulado)', 50, 100);
+    </script>
+  </body>
+</html> 

@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Buzón de Quejas y Sugerencias | FMH UNACH</title>
+    <!--begin::Primary Meta Tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Buzón de Quejas y Sugerencias | FMH UNACH" />
+    <meta name="author" content="ColorlibHQ" />
+    <meta
+      name="description"
+      content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS."
+    />
+    <meta
+      name="keywords"
+      content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard"
+    />
+    <!--end::Primary Meta Tags-->
+    <!--begin::Fonts-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
+      integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
+      crossorigin="anonymous"
+    />
+    <!--end::Fonts-->
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css"
+      integrity="sha256-tZHrRjVqNSRyWg2wbppGnT833E/Ys0DHWGwT04GiqQg="
+      crossorigin="anonymous"
+    />
+    <!--end::Third Party Plugin(OverlayScrollbars)-->
+    <!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI="
+      crossorigin="anonymous"
+    />
+    <!--end::Third Party Plugin(Bootstrap Icons)-->
+    <!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="../../dist/css/adminlte.css" />
+    <!--end::Required Plugin(AdminLTE)-->
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <!--begin::Header-->
+      <nav class="app-header navbar navbar-expand" style="background-color: #192d63">
+        <div class="container-fluid">
+          <div class="d-flex align-items-center w-100">
+            <img
+              src="../../dist/img/logo-unach-azul.png"
+              alt="Logo UNACH"
+              style="max-width: 48px; margin-right: 16px"
+            />
+            <div class="flex-grow-1 text-center">
+              <span class="fw-bold" style="color: #d4b012; font-size: 1.3rem"
+                >Facultad de Medicina Humana "Dr. Manuel Velasco Suárez"</span
+              ><br />
+              <span class="fw-light text-white" style="font-size: 1rem"
+                >Educación que transforma</span
+              >
+            </div>
+            <div class="d-flex align-items-center">
+              <a
+                href="../../dist/pages/admin/login.html"
+                class="btn btn-outline-light btn-sm me-2"
+                style="border-color: #d4b012; color: #d4b012"
+              >
+                <i class="bi bi-shield-lock me-1"></i>Administración
+              </a>
+              <img
+                src="../../dist/img/jubileo50.png"
+                alt="Jubileo 50 años"
+                style="max-width: 48px; margin-left: 16px"
+              />
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!--end::Header-->
+      <!--begin::Sidebar-->
+      <aside
+        class="app-sidebar bg-body-secondary shadow"
+        data-bs-theme="dark"
+        style="background-color: #192d63"
+      >
+        <!--begin::Sidebar Brand-->
+        <div class="sidebar-brand">
+          <a href="./index.html" class="brand-link">
+            <img
+              src="../../dist/img/logo-unach-azul.png"
+              alt="Logo UNACH"
+              class="brand-image opacity-75 shadow"
+            />
+            <span class="brand-text fw-bold" style="color: #d4b012">FMH UNACH</span>
+          </a>
+        </div>
+        <!--end::Sidebar Brand-->
+        <div class="sidebar-wrapper">
+          <nav class="mt-2">
+            <ul class="nav sidebar-menu flex-column" role="menu">
+              <li class="nav-item">
+                <a href="./index.html" class="nav-link">
+                  <i class="nav-icon bi bi-house-door-fill" style="color: #d4b012"></i>
+                  <p>Inicio</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./buzon.html" class="nav-link active">
+                  <i class="nav-icon bi bi-inbox-fill" style="color: #d4b012"></i>
+                  <p>Buzón</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./seguimiento.html" class="nav-link">
+                  <i class="nav-icon bi bi-list-check" style="color: #d4b012"></i>
+                  <p>Seguimiento</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./reconocimientos.html" class="nav-link">
+                  <i class="nav-icon bi bi-star-fill" style="color: #d4b012"></i>
+                  <p>Reconocimientos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./contacto.html" class="nav-link">
+                  <i class="nav-icon bi bi-envelope-fill" style="color: #d4b012"></i>
+                  <p>Contacto</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+      <!--end::Sidebar-->
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img
+                  src="/dist/img/logo-unach-azul.png"
+                  alt="Logo UNACH"
+                  style="max-width: 100px"
+                />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Buzón de Quejas, Sugerencias y Reconocimientos</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-10">
+                <div class="card mb-4">
+                  <div class="card-body text-center">
+                    <h4 class="mb-3">¡Tu voz es importante!</h4>
+                    <p class="lead">
+                      Este es un espacio seguro y confidencial para que puedas expresarte.
+                    </p>
+                    <hr />
+                    <p>
+                      Para ayudarnos a gestionar tu solicitud, por favor selecciona el tipo de
+                      mensaje que deseas enviar:
+                    </p>
+                    <div class="row text-start">
+                      <div class="col-md-4">
+                        <div class="p-3">
+                          <h5>✔️ Queja</h5>
+                          <p class="small">
+                            Reportar una inconformidad o un problema que necesita atención.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="p-3">
+                          <h5>💡 Sugerencia</h5>
+                          <p class="small">
+                            Proponer una idea para mejorar algún aspecto de la facultad.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="p-3">
+                          <h5>⭐ Reconocimiento</h5>
+                          <p class="small">
+                            Destacar una acción positiva o el buen trabajo de alguien.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h4 class="mb-0">Formulario de Quejas y Sugerencias</h4>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <!-- DATOS DEL REMITENTE -->
+                      <h5 class="mb-3">Datos del Remitente</h5>
+                      <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                          <label for="nombre" class="form-label">Nombre (Opcional)</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="nombre"
+                            placeholder="Tu nombre completo"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label for="correo" class="form-label">Correo electrónico</label>
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="correo"
+                            placeholder="tucorreo@ejemplo.com"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label for="adscripcion" class="form-label"
+                            >Semestre/Área de adscripción</label
+                          >
+                          <input type="text" class="form-control" id="adscripcion" />
+                        </div>
+                        <div class="col-md-6">
+                          <label for="telefono" class="form-label">Teléfono (Opcional)</label>
+                          <input type="tel" class="form-control" id="telefono" />
+                        </div>
+                      </div>
+                      <div class="row g-3 mb-3">
+                        <div class="col-md-7">
+                          <label class="form-label d-block">Tipo de usuario:</label>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="tipoUsuario"
+                              id="estudiante"
+                            />
+                            <label class="form-check-label" for="estudiante">Estudiante</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="tipoUsuario"
+                              id="docente"
+                            />
+                            <label class="form-check-label" for="docente">Personal Docente</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="tipoUsuario"
+                              id="administrativo"
+                            />
+                            <label class="form-check-label" for="administrativo"
+                              >Personal Administrativo</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <label class="form-label d-block">Sexo:</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sexo" id="mujer" />
+                            <label class="form-check-label" for="mujer">Mujer</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sexo" id="hombre" />
+                            <label class="form-check-label" for="hombre">Hombre</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="sexo"
+                              id="no-responder"
+                            />
+                            <label class="form-check-label" for="no-responder"
+                              >Prefiero no responder</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="confidencial" />
+                        <label class="form-check-label" for="confidencial"
+                          >Deseo que mi identidad sea confidencial</label
+                        >
+                      </div>
+                      <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="autorizoContacto" />
+                        <label class="form-check-label" for="autorizoContacto"
+                          >Autorizo que me contacten para dar seguimiento a mi caso</label
+                        >
+                      </div>
+                      <hr />
+                      <!-- TIPO Y DETALLES -->
+                      <h5 class="mb-3">Tipo y Detalles de la Comunicación</h5>
+                      <div class="mb-3">
+                        <label class="form-label d-block">Tipo de Comunicación:</label>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="tipoComunicacion"
+                            id="queja"
+                          />
+                          <label class="form-check-label" for="queja">Queja</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="tipoComunicacion"
+                            id="sugerencia"
+                          />
+                          <label class="form-check-label" for="sugerencia">Sugerencia</label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label d-block">Categoría:</label>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="categoria"
+                            id="infraestructura"
+                          />
+                          <label class="form-check-label" for="infraestructura"
+                            >Infraestructura</label
+                          >
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="categoria"
+                            id="academico"
+                          />
+                          <label class="form-check-label" for="academico">Asuntos académicos</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="categoria"
+                            id="administrativos"
+                          />
+                          <label class="form-check-label" for="administrativos"
+                            >Asuntos administrativos</label
+                          >
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="categoria"
+                            id="convivencia"
+                          />
+                          <label class="form-check-label" for="convivencia">Convivencia</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="categoria"
+                            id="transporte"
+                          />
+                          <label class="form-check-label" for="transporte">Transporte</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="categoria" id="otro" />
+                          <label class="form-check-label" for="otro">Otro</label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción de hechos:</label>
+                        <textarea
+                          class="form-control"
+                          id="descripcion"
+                          rows="5"
+                          placeholder="Describe detalladamente la situación..."
+                        ></textarea>
+                      </div>
+                      <div class="mb-4">
+                        <label for="propuesta" class="form-label"
+                          >Propuesta de mejora (Opcional):</label
+                        >
+                        <textarea class="form-control" id="propuesta" rows="3"></textarea>
+                      </div>
+                      <hr />
+                      <!-- EVIDENCIA Y FIRMA -->
+                      <h5 class="mb-3">Evidencia y Cierre</h5>
+                      <div class="alert alert-secondary">
+                        Si considera necesario, envíe fotos, documentos o cualquier evidencia al
+                        correo <strong>quejasysugerenciasfmht@unach.mx</strong>.
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label d-block">¿Se adjunta evidencia?</label>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="adjuntaEvidencia"
+                            id="siEvidencia"
+                          />
+                          <label class="form-check-label" for="siEvidencia">Sí</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="adjuntaEvidencia"
+                            id="noEvidencia"
+                          />
+                          <label class="form-check-label" for="noEvidencia">No</label>
+                        </div>
+                      </div>
+                      <div class="mb-4">
+                        <label for="firma" class="form-label"
+                          >Firma del remitente (Opcional, puede escribir su nombre)</label
+                        >
+                        <input type="text" class="form-control" id="firma" />
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100" disabled>
+                        Enviar Formulario (solo visual)
+                      </button>
+                    </form>
+                    <div class="alert alert-info mt-3 small">
+                      <strong>Nota:</strong> Todas las quejas y sugerencias serán atendidas conforme
+                      al protocolo establecido por la Facultad de Medicina, garantizando la
+                      confidencialidad y el respeto a los derechos de los involucrados. Para dar
+                      seguimiento a su caso, puede comunicarse al correo:
+                      <strong>quejasysugerenciasfmht@unach.mx</strong>.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!--begin::Footer-->
+      <footer class="app-footer" style="background-color: #192d63; color: #d4b012; padding: 1rem 0">
+        <div class="container-fluid text-center">
+          <strong>
+            &copy; 2025 Facultad de Medicina Humana “Dr. Manuel Velasco Suárez” - UNACH.<br />
+            Carretera Puerto Madero Km. 10.5, Finca Santa Teresa, Tapachula, Chiapas, México | C.P.
+            30825 | Tel: (961) 6178000 ext. 5695
+          </strong>
+          <div style="font-size: 0.9rem; color: #fff">Todos los derechos reservados.</div>
+        </div>
+      </footer>
+      <!--end::Footer-->
+      <!--begin::Third Party Plugin(OverlayScrollbars)-->
+      <script
+        src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
+        integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
+        crossorigin="anonymous"
+      ></script>
+      <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+      <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+      ></script>
+      <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"
+      ></script>
+      <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+      <script src="../../dist/js/adminlte.js"></script>
+      <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+      <script>
+        const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+        const Default = {
+          scrollbarTheme: 'os-theme-light',
+          scrollbarAutoHide: 'leave',
+          scrollbarClickScroll: true,
+        };
+        document.addEventListener('DOMContentLoaded', function () {
+          const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+          if (sidebarWrapper && typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== 'undefined') {
+            OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+              scrollbars: {
+                theme: Default.scrollbarTheme,
+                autoHide: Default.scrollbarAutoHide,
+                clickScroll: Default.scrollbarClickScroll,
+              },
+            });
+          }
+        });
+      </script>
+      <!--end::OverlayScrollbars Configure-->
+    </div>
+  </body>
+</html>

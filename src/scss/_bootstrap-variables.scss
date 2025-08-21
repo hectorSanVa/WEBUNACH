@@ -1759,16 +1759,16 @@ $nested-kbd-font-weight:            null !default; // Deprecated in v5.2.0, remo
 $pre-color:                         null !default;
 
 // Colores institucionales UNACH
-$unach-azul: #192D63;
-$unach-dorado: #D4B012;
+$unach-azul: #192d63 !default;
+$unach-dorado: #d4b012 !default;
 
-$btn-primary-bg: $unach-azul;
-$btn-primary-border: $unach-azul;
-$btn-primary-color: #fff;
-$btn-primary-hover-bg: darken($unach-azul, 10%);
-$btn-primary-hover-border: darken($unach-azul, 10%);
-$btn-secondary-bg: $unach-dorado;
-$btn-secondary-border: $unach-dorado;
-$btn-secondary-color: #192D63;
-$btn-secondary-hover-bg: darken($unach-dorado, 10%);
-$btn-secondary-hover-border: darken($unach-dorado, 10%);
+$btn-primary-bg: $unach-azul !default;
+$btn-primary-border: $unach-azul !default;
+$btn-primary-color: #fff !default;
+$btn-primary-hover-bg: #151f4f !default;
+$btn-primary-hover-border: #151f4f !default;
+$btn-secondary-bg: $unach-dorado !default;
+$btn-secondary-border: $unach-dorado !default;
+$btn-secondary-color: #192d63 !default;
+$btn-secondary-hover-bg: #b89a0f !default;
+$btn-secondary-hover-border: #b89a0f !default;

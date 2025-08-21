@@ -5,13 +5,13 @@
 // Color variants
 .card {
   @include box-shadow($lte-card-shadow);
-  border-top: 4px solid #D4B012;
-  box-shadow: 0 2px 8px rgba(25,45,99,0.08);
+  border-top: 4px solid #d4b012;
+  box-shadow: 0 2px 8px rgba(25, 45, 99, .8);
 
   &[class*="card-"]:not(.card-outline),
   &[class*="text-bg-"]:not(.card-outline) {
     > .card-header {
-      color: #192D63;
+      color: #192d63;
       background-color: var(--#{$lte-prefix}card-variant-bg);
 
       .btn-tool {

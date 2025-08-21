@@ -34,7 +34,14 @@
     "watch-css-main": "nodemon --watch src/scss/ --ext scss --exec \"npm-run-all css-lint css-compile\"",
     "watch-css-dist": "nodemon --watch dist/css/ --ext css --ignore \"dist/css/*.rtl.*\" --exec \"npm run css-rtl\"",
     "watch-js-main": "nodemon --watch src/ts/ --ext ts --exec \"npm-run-all js-lint js-compile\"",
-    "watch-assets": "nodemon --watch src/assets/ --exec \"npm run assets\""
+    "watch-assets": "nodemon --watch src/assets/ --exec \"npm run assets\"",
+    "admin": "node server-admin.js",
+    "admin-auto": "node iniciar-admin.js",
+    "admin-alt": "node iniciar-admin-puerto3002.js",
+    "admin-dev": "npm run production && node server-admin.js",
+    "open-admin": "start admin.html",
+    "admin-browser": "start http://localhost:3001/admin",
+    "admin-browser-alt": "start http://localhost:3002/admin"
   },
   "keywords": [
     "css",
@@ -56,6 +63,9 @@
   },
   "bugs": {
     "url": "https://github.com/ColorlibHQ/AdminLTE/issues"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

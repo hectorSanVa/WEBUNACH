@@ -1,0 +1,429 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import AdminSidenav from "@components/admin/_admin-sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Gestión de Quejas | FMH UNACH";
+const path = "../../../dist";
+const mainPage = "quejas";
+const page = "quejas";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <AdminSidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Gestión de Quejas</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Filtros y Búsqueda -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="card-title">Filtros y Búsqueda</h5>
+              </div>
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-md-3">
+                    <label for="searchInput" class="form-label">Buscar</label>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por folio, asunto...">
+                  </div>
+                  <div class="col-md-2">
+                    <label for="statusFilter" class="form-label">Estado</label>
+                    <select class="form-select" id="statusFilter">
+                      <option value="">Todos</option>
+                      <option value="Pendiente">Pendiente</option>
+                      <option value="En Revisión">En Revisión</option>
+                      <option value="Resuelto">Resuelto</option>
+                      <option value="Rechazado">Rechazado</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="dateFilter" class="form-label">Fecha</label>
+                    <select class="form-select" id="dateFilter">
+                      <option value="">Todas</option>
+                      <option value="today">Hoy</option>
+                      <option value="week">Esta semana</option>
+                      <option value="month">Este mes</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="priorityFilter" class="form-label">Prioridad</label>
+                    <select class="form-select" id="priorityFilter">
+                      <option value="">Todas</option>
+                      <option value="Alta">Alta</option>
+                      <option value="Media">Media</option>
+                      <option value="Baja">Baja</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn btn-primary me-2" onclick="applyFilters()">
+                      <i class="bi bi-search"></i> Filtrar
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearFilters()">
+                      <i class="bi bi-arrow-clockwise"></i> Limpiar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla de Quejas -->
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title">Lista de Quejas</h5>
+                <div>
+                  <button class="btn btn-success" onclick="exportToExcel()">
+                    <i class="bi bi-file-earmark-excel"></i> Exportar
+                  </button>
+                  <button class="btn btn-primary" onclick="addNewComplaint()">
+                    <i class="bi bi-plus-circle"></i> Nueva Queja
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover" id="quejasTable">
+                    <thead>
+                      <tr>
+                        <th>Folio</th>
+                        <th>Fecha</th>
+                        <th>Remitente</th>
+                        <th>Asunto</th>
+                        <th>Prioridad</th>
+                        <th>Estado</th>
+                        <th>Asignado a</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Se llenará dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+                
+                <!-- Paginación -->
+                <nav aria-label="Paginación de quejas">
+                  <ul class="pagination justify-content-center" id="pagination">
+                    <!-- Se generará dinámicamente -->
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+
+    <!-- Modal para Ver/Editar Queja -->
+    <div class="modal fade" id="quejaModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Detalles de la Queja</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="quejaForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Folio</label>
+                  <input type="text" class="form-control" id="modalFolio" readonly>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Fecha de Recepción</label>
+                  <input type="text" class="form-control" id="modalFecha" readonly>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Remitente</label>
+                  <input type="text" class="form-control" id="modalRemitente">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Correo</label>
+                  <input type="email" class="form-control" id="modalCorreo">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Asunto</label>
+                  <input type="text" class="form-control" id="modalAsunto">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Descripción</label>
+                  <textarea class="form-control" id="modalDescripcion" rows="4"></textarea>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Estado</label>
+                  <select class="form-select" id="modalEstado">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="En Revisión">En Revisión</option>
+                    <option value="Resuelto">Resuelto</option>
+                    <option value="Rechazado">Rechazado</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Prioridad</label>
+                  <select class="form-select" id="modalPrioridad">
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Media</option>
+                    <option value="Baja">Baja</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Asignado a</label>
+                  <select class="form-select" id="modalAsignado">
+                    <option value="">Sin asignar</option>
+                    <option value="Dr. García">Dr. García</option>
+                    <option value="Lic. Martínez">Lic. Martínez</option>
+                    <option value="Ing. López">Ing. López</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Comentarios del Administrador</label>
+                  <textarea class="form-control" id="modalComentarios" rows="3" placeholder="Agregar comentarios sobre el seguimiento..."></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" onclick="saveQueja()">Guardar Cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+
+      // Datos de ejemplo
+      let quejasData = [
+        {
+          folio: 'QJ-2024-001',
+          fecha: '2024-01-20',
+          remitente: 'Anónimo',
+          correo: 'anonimo@ejemplo.com',
+          asunto: 'Problema con el aire acondicionado',
+          descripcion: 'El aire acondicionado del salón 101 no funciona correctamente desde hace 3 días.',
+          prioridad: 'Alta',
+          estado: 'Pendiente',
+          asignado: '',
+          comentarios: ''
+        },
+        {
+          folio: 'QJ-2024-002',
+          fecha: '2024-01-19',
+          remitente: 'María López',
+          correo: 'maria.lopez@ejemplo.com',
+          asunto: 'Falta de material en laboratorio',
+          descripcion: 'No hay suficientes microscopios disponibles para la práctica de histología.',
+          prioridad: 'Media',
+          estado: 'En Revisión',
+          asignado: 'Dr. García',
+          comentarios: 'Se está gestionando la compra de nuevos microscopios.'
+        },
+        {
+          folio: 'QJ-2024-003',
+          fecha: '2024-01-18',
+          remitente: 'Carlos Ruiz',
+          correo: 'carlos.ruiz@ejemplo.com',
+          asunto: 'Problema de iluminación en pasillos',
+          descripcion: 'Los pasillos del segundo piso tienen poca iluminación, especialmente por las noches.',
+          prioridad: 'Baja',
+          estado: 'Resuelto',
+          asignado: 'Ing. López',
+          comentarios: 'Se han reemplazado las lámparas defectuosas.'
+        }
+      ];
+
+      let currentPage = 1;
+      const itemsPerPage = 10;
+
+      // Cargar datos iniciales
+      loadQuejas();
+
+      function loadQuejas() {
+        const tableBody = document.querySelector('#quejasTable tbody');
+        tableBody.innerHTML = '';
+
+        quejasData.forEach(queja => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><strong>${queja.folio}</strong></td>
+            <td>${queja.fecha}</td>
+            <td>${queja.remitente}</td>
+            <td>${queja.asunto}</td>
+            <td><span class="badge ${getPriorityBadgeClass(queja.prioridad)}">${queja.prioridad}</span></td>
+            <td><span class="badge ${getStatusBadgeClass(queja.estado)}">${queja.estado}</span></td>
+            <td>${queja.asignado || 'Sin asignar'}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="viewQueja('${queja.folio}')">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-success" onclick="editQueja('${queja.folio}')">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="deleteQueja('${queja.folio}')">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          `;
+          tableBody.appendChild(row);
+        });
+      }
+
+      function getPriorityBadgeClass(prioridad) {
+        switch(prioridad) {
+          case 'Alta': return 'bg-danger';
+          case 'Media': return 'bg-warning';
+          case 'Baja': return 'bg-success';
+          default: return 'bg-secondary';
+        }
+      }
+
+      function getStatusBadgeClass(estado) {
+        switch(estado) {
+          case 'Pendiente': return 'bg-warning';
+          case 'En Revisión': return 'bg-info';
+          case 'Resuelto': return 'bg-success';
+          case 'Rechazado': return 'bg-danger';
+          default: return 'bg-secondary';
+        }
+      }
+
+      function viewQueja(folio) {
+        const queja = quejasData.find(q => q.folio === folio);
+        if (queja) {
+          fillModal(queja, false);
+          document.getElementById('modalTitle').textContent = 'Ver Queja';
+          new bootstrap.Modal(document.getElementById('quejaModal')).show();
+        }
+      }
+
+      function editQueja(folio) {
+        const queja = quejasData.find(q => q.folio === folio);
+        if (queja) {
+          fillModal(queja, true);
+          document.getElementById('modalTitle').textContent = 'Editar Queja';
+          new bootstrap.Modal(document.getElementById('quejaModal')).show();
+        }
+      }
+
+      function fillModal(queja, editable) {
+        document.getElementById('modalFolio').value = queja.folio;
+        document.getElementById('modalFecha').value = queja.fecha;
+        document.getElementById('modalRemitente').value = queja.remitente;
+        document.getElementById('modalCorreo').value = queja.correo;
+        document.getElementById('modalAsunto').value = queja.asunto;
+        document.getElementById('modalDescripcion').value = queja.descripcion;
+        document.getElementById('modalEstado').value = queja.estado;
+        document.getElementById('modalPrioridad').value = queja.prioridad;
+        document.getElementById('modalAsignado').value = queja.asignado;
+        document.getElementById('modalComentarios').value = queja.comentarios;
+
+        // Hacer campos editables o no
+        const inputs = document.querySelectorAll('#quejaForm input, #quejaForm select, #quejaForm textarea');
+        inputs.forEach(input => {
+          if (input.id !== 'modalFolio' && input.id !== 'modalFecha') {
+            input.readOnly = !editable;
+            input.disabled = !editable;
+          }
+        });
+      }
+
+      function saveQueja() {
+        const folio = document.getElementById('modalFolio').value;
+        const quejaIndex = quejasData.findIndex(q => q.folio === folio);
+        
+        if (quejaIndex !== -1) {
+          quejasData[quejaIndex] = {
+            ...quejasData[quejaIndex],
+            remitente: document.getElementById('modalRemitente').value,
+            correo: document.getElementById('modalCorreo').value,
+            asunto: document.getElementById('modalAsunto').value,
+            descripcion: document.getElementById('modalDescripcion').value,
+            estado: document.getElementById('modalEstado').value,
+            prioridad: document.getElementById('modalPrioridad').value,
+            asignado: document.getElementById('modalAsignado').value,
+            comentarios: document.getElementById('modalComentarios').value
+          };
+
+          loadQuejas();
+          bootstrap.Modal.getInstance(document.getElementById('quejaModal')).hide();
+          alert('Queja actualizada correctamente');
+        }
+      }
+
+      function deleteQueja(folio) {
+        if (confirm('¿Estás seguro de que quieres eliminar esta queja?')) {
+          quejasData = quejasData.filter(q => q.folio !== folio);
+          loadQuejas();
+          alert('Queja eliminada correctamente');
+        }
+      }
+
+      function addNewComplaint() {
+        // Limpiar formulario
+        document.getElementById('quejaForm').reset();
+        document.getElementById('modalFolio').value = 'QJ-2024-' + String(quejasData.length + 1).padStart(3, '0');
+        document.getElementById('modalFecha').value = new Date().toISOString().split('T')[0];
+        
+        // Hacer campos editables
+        const inputs = document.querySelectorAll('#quejaForm input, #quejaForm select, #quejaForm textarea');
+        inputs.forEach(input => {
+          if (input.id !== 'modalFolio' && input.id !== 'modalFecha') {
+            input.readOnly = false;
+            input.disabled = false;
+          }
+        });
+
+        document.getElementById('modalTitle').textContent = 'Nueva Queja';
+        new bootstrap.Modal(document.getElementById('quejaModal')).show();
+      }
+
+      function applyFilters() {
+        // Implementar lógica de filtros
+        alert('Filtros aplicados');
+      }
+
+      function clearFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('statusFilter').value = '';
+        document.getElementById('dateFilter').value = '';
+        document.getElementById('priorityFilter').value = '';
+        loadQuejas();
+      }
+
+      function exportToExcel() {
+        alert('Exportando datos a Excel...');
+        // Aquí iría la lógica de exportación
+      }
+    </script>
+  </body>
+</html> 

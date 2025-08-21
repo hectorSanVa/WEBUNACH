@@ -12,7 +12,12 @@ const distPath = path;
         <span class="fw-bold" style="color: #D4B012; font-size: 1.3rem;">Facultad de Medicina Humana "Dr. Manuel Velasco Suárez"</span><br />
         <span class="fw-light text-white" style="font-size: 1rem;">Educación que transforma</span>
       </div>
-      <img src={path + "/img/jubileo50.png"} alt="Jubileo 50 años" style="max-width: 48px; margin-left: 16px;" />
+      <div class="d-flex align-items-center">
+        <a href={path + "/pages/admin/login.html"} class="btn btn-outline-light btn-sm me-2" style="border-color: #D4B012; color: #D4B012;">
+          <i class="bi bi-shield-lock me-1"></i>Administración
+        </a>
+        <img src={path + "/img/jubileo50.png"} alt="Jubileo 50 años" style="max-width: 48px; margin-left: 16px;" />
+      </div>
     </div>
   </div>
 </nav>

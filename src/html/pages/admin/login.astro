@@ -1,0 +1,95 @@
+---
+import Head from "@components/_head.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Administración | FMH UNACH";
+const path = "../../../dist";
+const htmlPath = "..";
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="login-page bg-body-secondary">
+    <div class="login-box">
+      <div class="login-logo">
+        <a href={htmlPath + "/index.html"}>
+          <img src={path + "/img/logo-unach-azul.png"} alt="Logo UNACH" style="max-width: 120px;" />
+          <span class="brand-text fw-bold" style="color: #192D63;">FMH UNACH</span>
+        </a>
+      </div>
+      
+      <div class="card">
+        <div class="card-body login-card-body">
+          <h4 class="text-center mb-3" style="color: #192D63;">Panel de Administración</h4>
+          <p class="login-box-msg">Inicia sesión para acceder al panel de control</p>
+
+          <form action={htmlPath + "/admin/dashboard.html"} method="post" id="loginForm">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Usuario" id="username" required />
+              <div class="input-group-text">
+                <span class="bi bi-person-fill"></span>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" class="form-control" placeholder="Contraseña" id="password" required />
+              <div class="input-group-text">
+                <span class="bi bi-lock-fill"></span>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-8">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="rememberMe" />
+                  <label class="form-check-label" for="rememberMe">
+                    Recordarme
+                  </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn" style="background-color: #192D63; color: white;">
+                    Ingresar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <a href={htmlPath + "/index.html"} class="text-decoration-none" style="color: #192D63;">
+              <i class="bi bi-arrow-left me-1"></i>Volver al inicio
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <Scripts path={path} />
+    
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        // Credenciales de ejemplo (en producción usar autenticación real)
+        if (username === 'admin' && password === 'admin123') {
+          // Guardar sesión
+          localStorage.setItem('adminLoggedIn', 'true');
+          localStorage.setItem('adminUser', username);
+          
+          // Redirigir al dashboard
+          window.location.href = '../admin/dashboard.html';
+        } else {
+          alert('Credenciales incorrectas. Usuario: admin, Contraseña: admin123');
+        }
+      });
+    </script>
+  </body>
+</html> 

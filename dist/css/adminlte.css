@@ -14043,9 +14043,11 @@ body:not(.app-loaded) .app-footer {
 
 .card {
   box-shadow: 0 0 1px rgba(var(--bs-body-color-rgb), 0.125), 0 1px 3px rgba(var(--bs-body-color-rgb), 0.2);
+  border-top: 4px solid #d4b012;
+  box-shadow: 0 2px 8px rgba(25, 45, 99, 0.8);
 }
 .card[class*=card-]:not(.card-outline) > .card-header, .card[class*=text-bg-]:not(.card-outline) > .card-header {
-  color: var(--lte-card-variant-color);
+  color: #192d63;
   background-color: var(--lte-card-variant-bg);
 }
 .card[class*=card-]:not(.card-outline) > .card-header .btn-tool, .card[class*=text-bg-]:not(.card-outline) > .card-header .btn-tool {
