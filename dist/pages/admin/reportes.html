@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reportes y Estadísticas | FMH UNACH</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Reportes y Estadísticas | FMH UNACH" />
+    <meta name="description" content="Panel de administración con reportes y estadísticas del sistema" />
+    
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" />
+    <!--end::Fonts-->
+    
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css" integrity="sha256-tZHrRjVqNSRyWg2wbppGnT833E/Ys0DHWGwT04GiqQg=" crossorigin="anonymous" />
+    <!--end::Third Party Plugin(OverlayScrollbars)-->
+    
+    <!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous" />
+    <!--end::Third Party Plugin(Bootstrap Icons)-->
+    
+    <!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="../../../dist/css/adminlte.css" />
+    <!--end::Required Plugin(AdminLTE)-->
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <!--begin::Header-->
+      <nav class="app-header navbar navbar-expand" style="background-color: #192d63">
+        <div class="container-fluid">
+          <div class="d-flex align-items-center w-100">
+            <img src="../../../dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 48px; margin-right: 16px" />
+            <div class="flex-grow-1 text-center">
+              <span class="fw-bold" style="color: #d4b012; font-size: 1.3rem">Facultad de Medicina Humana "Dr. Manuel Velasco Suárez"</span><br />
+              <span class="fw-light text-white" style="font-size: 1rem">Educación que transforma</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <a href="../../../dist/pages/admin/login.html" class="btn btn-outline-light btn-sm me-2" style="border-color: #d4b012; color: #d4b012">
+                <i class="bi bi-shield-lock me-1"></i>Administración
+              </a>
+              <img src="../../../dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 48px; margin-left: 16px" />
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!--end::Header-->
+      
+      <!--begin::Sidebar-->
+      <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark" style="background-color: #192d63">
+        <!--begin::Sidebar Brand-->
+        <div class="sidebar-brand">
+          <a href="/admin/dashboard" class="brand-link">
+            <img src="../../../dist/img/logo-unach-azul.png" alt="Logo UNACH" class="brand-image opacity-75 shadow" />
+            <span class="brand-text fw-bold" style="color: #d4b012">ADMIN UNACH</span>
+          </a>
+        </div>
+        <!--end::Sidebar Brand-->
+        
+        <div class="sidebar-wrapper">
+          <nav class="mt-2">
+            <ul class="nav sidebar-menu flex-column" role="menu">
+              <li class="nav-item">
+                <a href="/admin/dashboard" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer2" style="color: #d4b012"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/quejas" class="nav-link">
+                  <i class="nav-icon bi bi-exclamation-triangle-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Quejas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/sugerencias" class="nav-link">
+                  <i class="nav-icon bi bi-lightbulb-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Sugerencias</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/reconocimientos" class="nav-link">
+                  <i class="nav-icon bi bi-star-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Reconocimientos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/usuarios" class="nav-link">
+                  <i class="nav-icon bi bi-people-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Usuarios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/reportes" class="nav-link active">
+                  <i class="nav-icon bi bi-graph-up" style="color: #d4b012"></i>
+                  <p>Reportes y Estadísticas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/configuracion" class="nav-link">
+                  <i class="nav-icon bi bi-gear-fill" style="color: #d4b012"></i>
+                  <p>Configuración</p>
+                </a>
+              </li>
+              <hr style="border-color: #d4b012; opacity: 0.3" />
+              <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="nav-icon bi bi-house-door-fill" style="color: #d4b012"></i>
+                  <p>Volver al Sitio</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link" id="logoutBtn">
+                  <i class="nav-icon bi bi-box-arrow-right" style="color: #d4b012"></i>
+                  <p>Cerrar Sesión</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+      <!--end::Sidebar-->
+      
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Reportes y Estadísticas</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Filtros de Fecha -->
+            <div class="row mb-4">
+              <div class="col-md-3">
+                <label class="form-label">Período de Análisis</label>
+                <select class="form-select" id="periodoFilter">
+                  <option value="7">Últimos 7 días</option>
+                  <option value="30" selected>Últimos 30 días</option>
+                  <option value="90">Últimos 3 meses</option>
+                  <option value="365">Último año</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Fecha Inicio</label>
+                <input type="date" class="form-control" id="fechaInicio">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Fecha Fin</label>
+                <input type="date" class="form-control" id="fechaFin">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">&nbsp;</label>
+                <div class="d-grid">
+                  <button class="btn btn-primary" id="generarReporteBtn">
+                    <i class="bi bi-graph-up me-1"></i>Generar Reporte
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Resumen General -->
+            <div class="row g-4 mb-4">
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="totalEntradas">0</h3>
+                        <p class="mb-0">Total Entradas</p>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="bi bi-inbox-fill fs-1"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="tasaResolucion">0%</h3>
+                        <p class="mb-0">Tasa de Resolución</p>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="bi bi-check-circle-fill fs-1"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="tiempoPromedio">0</h3>
+                        <p class="mb-0">Tiempo Promedio (días)</p>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="bi bi-clock-fill fs-1"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6">
+                <div class="card bg-info text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h3 class="mb-0" id="usuariosActivos">0</h3>
+                        <p class="mb-0">Usuarios Activos</p>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="bi bi-people-fill fs-1"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Gráficos Principales -->
+            <div class="row g-4 mb-4">
+              <!-- Gráfico de Actividad por Tipo -->
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Actividad por Tipo</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="actividadTipoChart" width="400" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Gráfico de Tendencia Temporal -->
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Tendencia Temporal</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="tendenciaTemporalChart" width="400" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Gráficos Secundarios -->
+            <div class="row g-4 mb-4">
+              <!-- Gráfico de Estados -->
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Distribución por Estados</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="estadosChart" width="400" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Gráfico de Categorías -->
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Distribución por Categorías</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="categoriasChart" width="400" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Gráfico de Prioridades -->
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Distribución por Prioridades</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="prioridadesChart" width="400" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tabla de Resumen -->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Resumen Detallado</h5>
+                <div class="card-tools">
+                  <button class="btn btn-success btn-sm" id="exportarExcelBtn">
+                    <i class="bi bi-file-earmark-excel me-1"></i>Exportar Excel
+                  </button>
+                  <button class="btn btn-danger btn-sm" id="exportarPDFBtn">
+                    <i class="bi bi-file-earmark-pdf me-1"></i>Exportar PDF
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="resumenTable">
+                    <thead>
+                      <tr>
+                        <th>Categoría</th>
+                        <th>Total</th>
+                        <th>Pendientes</th>
+                        <th>En Proceso</th>
+                        <th>Resueltas</th>
+                        <th>Tiempo Promedio</th>
+                        <th>Satisfacción</th>
+                      </tr>
+                    </thead>
+                    <tbody id="resumenTableBody">
+                      <!-- Se llenará dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Análisis de Tendencias -->
+            <div class="row g-4 mt-4">
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Análisis de Tendencias</h5>
+                  </div>
+                  <div class="card-body">
+                    <div id="tendenciasContent">
+                      <div class="alert alert-info">
+                        <h6><i class="bi bi-info-circle me-2"></i>Análisis de Tendencias</h6>
+                        <ul class="mb-0">
+                          <li>Las quejas han aumentado un 15% este mes</li>
+                          <li>Las sugerencias muestran una tendencia positiva</li>
+                          <li>El tiempo de resolución promedio ha mejorado</li>
+                          <li>La satisfacción del usuario está en 85%</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Recomendaciones</h5>
+                  </div>
+                  <div class="card-body">
+                    <div id="recomendacionesContent">
+                      <div class="alert alert-warning">
+                        <h6><i class="bi bi-lightbulb me-2"></i>Recomendaciones</h6>
+                        <ul class="mb-0">
+                          <li>Implementar sistema de seguimiento automático</li>
+                          <li>Capacitar personal en atención al usuario</li>
+                          <li>Mejorar tiempos de respuesta en categorías críticas</li>
+                          <li>Establecer métricas de calidad más estrictas</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+      <!--begin::Footer-->
+      <footer class="app-footer" style="background-color: #192d63; color: #d4b012; padding: 1rem 0">
+        <div class="container-fluid text-center">
+          <strong>
+            &copy; 2025 Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" - UNACH.<br />
+            Carretera Puerto Madero Km. 10.5, Finca Santa Teresa, Tapachula, Chiapas, México | C.P.
+            30825 | Tel: (961) 6178000 ext. 5695
+          </strong>
+          <div style="font-size: 0.9rem; color: #fff">Todos los derechos reservados.</div>
+        </div>
+      </footer>
+      <!--end::Footer-->
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="../../../dist/js/adminlte.js"></script>
+    
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+      
+      // Datos simulados para los reportes
+      let reportData = {
+        totalEntradas: 156,
+        quejas: 67,
+        sugerencias: 45,
+        reconocimientos: 44,
+        tasaResolucion: 78.5,
+        tiempoPromedio: 4.2,
+        usuariosActivos: 89,
+        estados: {
+          pendiente: 23,
+          enProceso: 34,
+          resuelto: 99
+        },
+        categorias: {
+          infraestructura: 45,
+          academico: 38,
+          servicios: 32,
+          tecnologia: 25,
+          otros: 16
+        },
+        prioridades: {
+          baja: 23,
+          media: 67,
+          alta: 45,
+          critica: 21
+        },
+        tendenciaTemporal: [
+          { fecha: '2024-01-01', quejas: 5, sugerencias: 3, reconocimientos: 2 },
+          { fecha: '2024-01-02', quejas: 7, sugerencias: 4, reconocimientos: 3 },
+          { fecha: '2024-01-03', quejas: 6, sugerencias: 5, reconocimientos: 4 },
+          { fecha: '2024-01-04', quejas: 8, sugerencias: 6, reconocimientos: 5 },
+          { fecha: '2024-01-05', quejas: 9, sugerencias: 7, reconocimientos: 6 },
+          { fecha: '2024-01-06', quejas: 7, sugerencias: 8, reconocimientos: 7 },
+          { fecha: '2024-01-07', quejas: 6, sugerencias: 9, reconocimientos: 8 }
+        ]
+      };
+      
+      // Variables para los gráficos
+      let charts = {};
+      
+      // Función para inicializar los gráficos
+      function initializeCharts() {
+        // Gráfico de Actividad por Tipo
+        const actividadCtx = document.getElementById('actividadTipoChart').getContext('2d');
+        charts.actividadTipo = new Chart(actividadCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Quejas', 'Sugerencias', 'Reconocimientos'],
+            datasets: [{
+              data: [reportData.quejas, reportData.sugerencias, reportData.reconocimientos],
+              backgroundColor: ['#dc3545', '#28a745', '#ffc107'],
+              borderWidth: 2,
+              borderColor: '#fff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }
+        });
+        
+        // Gráfico de Tendencia Temporal
+        const tendenciaCtx = document.getElementById('tendenciaTemporalChart').getContext('2d');
+        charts.tendenciaTemporal = new Chart(tendenciaCtx, {
+          type: 'line',
+          data: {
+            labels: reportData.tendenciaTemporal.map(item => item.fecha),
+            datasets: [
+              {
+                label: 'Quejas',
+                data: reportData.tendenciaTemporal.map(item => item.quejas),
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4
+              },
+              {
+                label: 'Sugerencias',
+                data: reportData.tendenciaTemporal.map(item => item.sugerencias),
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4
+              },
+              {
+                label: 'Reconocimientos',
+                data: reportData.tendenciaTemporal.map(item => item.reconocimientos),
+                borderColor: '#ffc107',
+                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                tension: 0.4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top'
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        
+        // Gráfico de Estados
+        const estadosCtx = document.getElementById('estadosChart').getContext('2d');
+        charts.estados = new Chart(estadosCtx, {
+          type: 'pie',
+          data: {
+            labels: ['Pendiente', 'En Proceso', 'Resuelto'],
+            datasets: [{
+              data: [reportData.estados.pendiente, reportData.estados.enProceso, reportData.estados.resuelto],
+              backgroundColor: ['#ffc107', '#17a2b8', '#28a745'],
+              borderWidth: 2,
+              borderColor: '#fff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }
+        });
+        
+        // Gráfico de Categorías
+        const categoriasCtx = document.getElementById('categoriasChart').getContext('2d');
+        charts.categorias = new Chart(categoriasCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Infraestructura', 'Académico', 'Servicios', 'Tecnología', 'Otros'],
+            datasets: [{
+              label: 'Cantidad',
+              data: [
+                reportData.categorias.infraestructura,
+                reportData.categorias.academico,
+                reportData.categorias.servicios,
+                reportData.categorias.tecnologia,
+                reportData.categorias.otros
+              ],
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                'rgba(255, 159, 64, 0.8)'
+              ],
+              borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        
+        // Gráfico de Prioridades
+        const prioridadesCtx = document.getElementById('prioridadesChart').getContext('2d');
+        charts.prioridades = new Chart(prioridadesCtx, {
+          type: 'horizontalBar',
+          data: {
+            labels: ['Baja', 'Media', 'Alta', 'Crítica'],
+            datasets: [{
+              label: 'Cantidad',
+              data: [
+                reportData.prioridades.baja,
+                reportData.prioridades.media,
+                reportData.prioridades.alta,
+                reportData.prioridades.critica
+              ],
+              backgroundColor: [
+                'rgba(40, 167, 69, 0.8)',
+                'rgba(255, 193, 7, 0.8)',
+                'rgba(255, 123, 7, 0.8)',
+                'rgba(220, 53, 69, 0.8)'
+              ],
+              borderColor: [
+                'rgba(40, 167, 69, 1)',
+                'rgba(255, 193, 7, 1)',
+                'rgba(255, 123, 7, 1)',
+                'rgba(220, 53, 69, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+      
+      // Función para actualizar estadísticas
+      function updateStats() {
+        document.getElementById('totalEntradas').textContent = reportData.totalEntradas;
+        document.getElementById('tasaResolucion').textContent = reportData.tasaResolucion + '%';
+        document.getElementById('tiempoPromedio').textContent = reportData.tiempoPromedio;
+        document.getElementById('usuariosActivos').textContent = reportData.usuariosActivos;
+      }
+      
+      // Función para llenar tabla de resumen
+      function fillResumenTable() {
+        const tbody = document.getElementById('resumenTableBody');
+        tbody.innerHTML = '';
+        
+        const categorias = [
+          {
+            nombre: 'Quejas',
+            total: reportData.quejas,
+            pendientes: Math.floor(reportData.quejas * 0.3),
+            enProceso: Math.floor(reportData.quejas * 0.2),
+            resueltas: Math.floor(reportData.quejas * 0.5),
+            tiempoPromedio: 5.2,
+            satisfaccion: 72
+          },
+          {
+            nombre: 'Sugerencias',
+            total: reportData.sugerencias,
+            pendientes: Math.floor(reportData.sugerencias * 0.2),
+            enProceso: Math.floor(reportData.sugerencias * 0.3),
+            resueltas: Math.floor(reportData.sugerencias * 0.5),
+            tiempoPromedio: 3.8,
+            satisfaccion: 88
+          },
+          {
+            nombre: 'Reconocimientos',
+            total: reportData.reconocimientos,
+            pendientes: Math.floor(reportData.reconocimientos * 0.1),
+            enProceso: Math.floor(reportData.reconocimientos * 0.2),
+            resueltas: Math.floor(reportData.reconocimientos * 0.7),
+            tiempoPromedio: 2.1,
+            satisfaccion: 95
+          }
+        ];
+        
+        categorias.forEach(categoria => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td><strong>${categoria.nombre}</strong></td>
+            <td><span class="badge bg-primary">${categoria.total}</span></td>
+            <td><span class="badge bg-warning">${categoria.pendientes}</span></td>
+            <td><span class="badge bg-info">${categoria.enProceso}</span></td>
+            <td><span class="badge bg-success">${categoria.resueltas}</span></td>
+            <td>${categoria.tiempoPromedio} días</td>
+            <td>
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar bg-success" style="width: ${categoria.satisfaccion}%">
+                  ${categoria.satisfaccion}%
+                </div>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+      
+      // Función para generar reporte
+      function generarReporte() {
+        const periodo = document.getElementById('periodoFilter').value;
+        const fechaInicio = document.getElementById('fechaInicio').value;
+        const fechaFin = document.getElementById('fechaFin').value;
+        
+        // Aquí se actualizarían los datos según los filtros
+        // Por ahora solo simulamos la actualización
+        alert(`Generando reporte para el período: ${periodo} días\nFecha inicio: ${fechaInicio || 'No especificada'}\nFecha fin: ${fechaFin || 'No especificada'}`);
+        
+        // Actualizar gráficos y estadísticas
+        updateStats();
+        fillResumenTable();
+      }
+      
+      // Función para exportar a Excel
+      function exportarExcel() {
+        alert('Función de exportación a Excel en desarrollo');
+      }
+      
+      // Función para exportar a PDF
+      function exportarPDF() {
+        alert('Función de exportación a PDF en desarrollo');
+      }
+      
+      // Event Listeners
+      document.getElementById('generarReporteBtn').addEventListener('click', generarReporte);
+      document.getElementById('exportarExcelBtn').addEventListener('click', exportarExcel);
+      document.getElementById('exportarPDFBtn').addEventListener('click', exportarPDF);
+      
+      // Función de logout
+      document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+          localStorage.removeItem('adminLoggedIn');
+          localStorage.removeItem('adminUser');
+          window.location.href = 'login.html';
+        }
+      });
+      
+      // Inicializar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        // Establecer fechas por defecto
+        const today = new Date();
+        const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000));
+        
+        document.getElementById('fechaInicio').value = thirtyDaysAgo.toISOString().split('T')[0];
+        document.getElementById('fechaFin').value = today.toISOString().split('T')[0];
+        
+        // Inicializar gráficos y datos
+        initializeCharts();
+        updateStats();
+        fillResumenTable();
+      });
+    </script>
+  </body>
+</html>

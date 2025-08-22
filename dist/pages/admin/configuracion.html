@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Configuración | FMH UNACH</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Configuración | FMH UNACH" />
+    <meta name="description" content="Panel de configuración del sistema administrativo" />
+    
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" />
+    <!--end::Fonts-->
+    
+    <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css" integrity="sha256-tZHrRjVqNSRyWg2wbppGnT833E/Ys0DHWGwT04GiqQg=" crossorigin="anonymous" />
+    <!--end::Third Party Plugin(OverlayScrollbars)-->
+    
+    <!--begin::Third Party Plugin(Bootstrap Icons)-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous" />
+    <!--end::Third Party Plugin(Bootstrap Icons)-->
+    
+    <!--begin::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="../../../dist/css/adminlte.css" />
+    <!--end::Required Plugin(AdminLTE)-->
+    
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <!--begin::Header-->
+      <nav class="app-header navbar navbar-expand" style="background-color: #192d63">
+        <div class="container-fluid">
+          <div class="d-flex align-items-center w-100">
+            <img src="../../../dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 48px; margin-right: 16px" />
+            <div class="flex-grow-1 text-center">
+              <span class="fw-bold" style="color: #d4b012; font-size: 1.3rem">Facultad de Medicina Humana "Dr. Manuel Velasco Suárez"</span><br />
+              <span class="fw-light text-white" style="font-size: 1rem">Educación que transforma</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <a href="../../../dist/pages/admin/login.html" class="btn btn-outline-light btn-sm me-2" style="border-color: #d4b012; color: #d4b012">
+                <i class="bi bi-shield-lock me-1"></i>Administración
+              </a>
+              <img src="../../../dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 48px; margin-left: 16px" />
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!--end::Header-->
+      
+      <!--begin::Sidebar-->
+      <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark" style="background-color: #192d63">
+        <!--begin::Sidebar Brand-->
+        <div class="sidebar-brand">
+          <a href="/admin/dashboard" class="brand-link">
+            <img src="../../../dist/img/logo-unach-azul.png" alt="Logo UNACH" class="brand-image opacity-75 shadow" />
+            <span class="brand-text fw-bold" style="color: #d4b012">ADMIN UNACH</span>
+          </a>
+        </div>
+        <!--end::Sidebar Brand-->
+        
+        <div class="sidebar-wrapper">
+          <nav class="mt-2">
+            <ul class="nav sidebar-menu flex-column" role="menu">
+              <li class="nav-item">
+                <a href="/admin/dashboard" class="nav-link">
+                  <i class="nav-icon bi bi-speedometer2" style="color: #d4b012"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/quejas" class="nav-link">
+                  <i class="nav-icon bi bi-exclamation-triangle-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Quejas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/sugerencias" class="nav-link">
+                  <i class="nav-icon bi bi-lightbulb-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Sugerencias</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/reconocimientos" class="nav-link">
+                  <i class="nav-icon bi bi-star-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Reconocimientos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/usuarios" class="nav-link">
+                  <i class="nav-icon bi bi-people-fill" style="color: #d4b012"></i>
+                  <p>Gestión de Usuarios</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/reportes" class="nav-link">
+                  <i class="nav-icon bi bi-graph-up" style="color: #d4b012"></i>
+                  <p>Reportes y Estadísticas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/configuracion" class="nav-link active">
+                  <i class="nav-icon bi bi-gear-fill" style="color: #d4b012"></i>
+                  <p>Configuración</p>
+                </a>
+              </li>
+              <hr style="border-color: #d4b012; opacity: 0.3" />
+              <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="nav-icon bi bi-house-door-fill" style="color: #d4b012"></i>
+                  <p>Volver al Sitio</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link" id="logoutBtn">
+                  <i class="nav-icon bi bi-box-arrow-right" style="color: #d4b012"></i>
+                  <p>Cerrar Sesión</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+      <!--end::Sidebar-->
+      
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Configuración del Sistema</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Pestañas de Configuración -->
+            <ul class="nav nav-tabs" id="configTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab">
+                  <i class="bi bi-gear me-2"></i>General
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="notificaciones-tab" data-bs-toggle="tab" data-bs-target="#notificaciones" type="button" role="tab">
+                  <i class="bi bi-bell me-2"></i>Notificaciones
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="seguridad-tab" data-bs-toggle="tab" data-bs-target="#seguridad" type="button" role="tab">
+                  <i class="bi bi-shield-lock me-2"></i>Seguridad
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="backup-tab" data-bs-toggle="tab" data-bs-target="#backup" type="button" role="tab">
+                  <i class="bi bi-cloud-arrow-up me-2"></i>Backup
+                </button>
+              </li>
+            </ul>
+            
+            <!-- Contenido de las Pestañas -->
+            <div class="tab-content" id="configTabsContent">
+              <!-- Pestaña General -->
+              <div class="tab-pane fade show active" id="general" role="tabpanel">
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración General del Sistema</h5>
+                  </div>
+                  <div class="card-body">
+                    <form id="configGeneralForm">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="form-label">Nombre de la Institución</label>
+                            <input type="text" class="form-control" id="nombreInstitucion" value="Facultad de Medicina Humana 'Dr. Manuel Velasco Suárez'" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="form-label">Zona Horaria</label>
+                        <select class="form-select" id="zonaHoraria">
+                          <option value="America/Mexico_City" selected>México Central (GMT-6)</option>
+                          <option value="America/Tijuana">Pacífico (GMT-8)</option>
+                          <option value="America/Cancun">Este (GMT-5)</option>
+                        </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="form-label">Idioma del Sistema</label>
+                            <select class="form-select" id="idioma">
+                              <option value="es" selected>Español</option>
+                              <option value="en">English</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="form-label">Tema Visual</label>
+                            <select class="form-select" id="tema">
+                              <option value="light" selected>Claro</option>
+                              <option value="dark">Oscuro</option>
+                              <option value="auto">Automático</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Descripción del Sistema</label>
+                        <textarea class="form-control" id="descripcionSistema" rows="3">Sistema de gestión de quejas, sugerencias y reconocimientos para la Facultad de Medicina Humana de la UNACH.</textarea>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="form-label">Máximo de archivos por entrada</label>
+                            <input type="number" class="form-control" id="maxArchivos" value="5" min="1" max="10">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="form-label">Tamaño máximo de archivo (MB)</label>
+                            <input type="number" class="form-control" id="maxTamanoArchivo" value="10" min="1" max="50">
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i>Guardar Configuración
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Pestaña Notificaciones -->
+              <div class="tab-pane fade" id="notificaciones" role="tabpanel">
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración de Notificaciones</h5>
+                  </div>
+                  <div class="card-body">
+                    <form id="configNotificacionesForm">
+                      <div class="mb-3">
+                        <h6>Notificaciones por Email</h6>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="emailNuevasEntradas" checked>
+                          <label class="form-check-label" for="emailNuevasEntradas">
+                            Notificar nuevas entradas al administrador
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="emailCambiosEstado" checked>
+                          <label class="form-check-label" for="emailCambiosEstado">
+                            Notificar cambios de estado a los usuarios
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="emailRecordatorios">
+                          <label class="form-check-label" for="emailRecordatorios">
+                            Enviar recordatorios de entradas pendientes
+                          </label>
+                        </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <h6>Configuración del Servidor SMTP</h6>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label class="form-label">Servidor SMTP</label>
+                            <input type="text" class="form-control" id="smtpServidor" value="smtp.gmail.com">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Puerto</label>
+                            <input type="number" class="form-control" id="smtpPuerto" value="587">
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="form-label">Usuario</label>
+                            <input type="email" class="form-control" id="smtpUsuario" placeholder="correo@unach.mx">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="smtpPassword" placeholder="Contraseña de aplicación">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <h6>Plantillas de Email</h6>
+                        <div class="mb-2">
+                          <label class="form-label">Asunto por defecto</label>
+                          <input type="text" class="form-control" id="emailAsunto" value="Notificación del Sistema - FMH UNACH">
+                        </div>
+                        <div class="mb-2">
+                          <label class="form-label">Firma del sistema</label>
+                          <textarea class="form-control" id="emailFirma" rows="3">Atentamente,&#10;Sistema de Gestión&#10;Facultad de Medicina Humana UNACH</textarea>
+                        </div>
+                      </div>
+                      
+                      <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i>Guardar Configuración
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Pestaña Seguridad -->
+              <div class="tab-pane fade" id="seguridad" role="tabpanel">
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración de Seguridad</h5>
+                  </div>
+                  <div class="card-body">
+                    <form id="configSeguridadForm">
+                      <div class="mb-3">
+                        <h6>Políticas de Contraseñas</h6>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label class="form-label">Longitud mínima</label>
+                            <input type="number" class="form-control" id="minLongitudPassword" value="8" min="6" max="20">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Días de expiración</label>
+                            <input type="number" class="form-control" id="diasExpiracionPassword" value="90" min="30" max="365">
+                          </div>
+                        </div>
+                        <div class="form-check mt-2">
+                          <input class="form-check-input" type="checkbox" id="requerirMayusculas" checked>
+                          <label class="form-check-label" for="requerirMayusculas">
+                            Requerir mayúsculas
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="requerirNumeros" checked>
+                          <label class="form-check-label" for="requerirNumeros">
+                            Requerir números
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="requerirCaracteresEspeciales">
+                          <label class="form-check-label" for="requerirCaracteresEspeciales">
+                            Requerir caracteres especiales
+                          </label>
+                        </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <h6>Sesión de Usuario</h6>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label class="form-label">Tiempo de inactividad (minutos)</label>
+                            <input type="number" class="form-control" id="tiempoInactividad" value="30" min="5" max="120">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Máximo de intentos de login</label>
+                            <input type="number" class="form-control" id="maxIntentosLogin" value="3" min="1" max="10">
+                          </div>
+                        </div>
+                        <div class="row mt-2">
+                          <div class="col-md-6">
+                            <label class="form-label">Bloqueo temporal (minutos)</label>
+                            <input type="number" class="form-control" id="tiempoBloqueo" value="15" min="5" max="60">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label">Sesiones simultáneas permitidas</label>
+                            <input type="number" class="form-control" id="sesionesSimultaneas" value="2" min="1" max="5">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <h6>Auditoría y Logs</h6>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="registrarLogins" checked>
+                          <label class="form-check-label" for="registrarLogins">
+                            Registrar todos los inicios de sesión
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="registrarAcciones" checked>
+                          <label class="form-check-label" for="registrarAcciones">
+                            Registrar acciones críticas del sistema
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="registrarCambios" checked>
+                          <label class="form-check-label" for="registrarCambios">
+                            Registrar cambios en datos sensibles
+                          </label>
+                        </div>
+                      </div>
+                      
+                      <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i>Guardar Configuración
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Pestaña Backup -->
+              <div class="tab-pane fade" id="backup" role="tabpanel">
+                <div class="card mt-3">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración de Backup y Mantenimiento</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h6>Backup Automático</h6>
+                        <form id="configBackupForm">
+                          <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="backupAutomatico" checked>
+                            <label class="form-check-label" for="backupAutomatico">
+                              Habilitar backup automático
+                            </label>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Frecuencia de backup</label>
+                            <select class="form-select" id="frecuenciaBackup">
+                              <option value="daily" selected>Diario</option>
+                              <option value="weekly">Semanal</option>
+                              <option value="monthly">Mensual</option>
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Hora de backup</label>
+                            <input type="time" class="form-control" id="horaBackup" value="02:00">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Retener backups por (días)</label>
+                            <input type="number" class="form-control" id="retenerBackups" value="30" min="7" max="365">
+                          </div>
+                          <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-1"></i>Guardar Configuración
+                          </button>
+                        </form>
+                      </div>
+                      
+                      <div class="col-md-6">
+                        <h6>Acciones del Sistema</h6>
+                        <div class="d-grid gap-2">
+                          <button class="btn btn-success" id="crearBackupBtn">
+                            <i class="bi bi-cloud-arrow-up me-1"></i>Crear Backup Manual
+                          </button>
+                          <button class="btn btn-info" id="restaurarBackupBtn">
+                            <i class="bi bi-cloud-arrow-down me-1"></i>Restaurar Backup
+                          </button>
+                          <button class="btn btn-warning" id="limpiarLogsBtn">
+                            <i class="bi bi-trash me-1"></i>Limpiar Logs Antiguos
+                          </button>
+                          <button class="btn btn-danger" id="optimizarDBBtn">
+                            <i class="bi bi-speedometer2 me-1"></i>Optimizar Base de Datos
+                          </button>
+                        </div>
+                        
+                        <hr>
+                        
+                        <h6>Estado del Sistema</h6>
+                        <div class="alert alert-info">
+                          <small>
+                            <strong>Último backup:</strong> 2024-01-20 02:00<br>
+                            <strong>Próximo backup:</strong> 2024-01-21 02:00<br>
+                            <strong>Espacio en disco:</strong> 75% disponible<br>
+                            <strong>Estado de la BD:</strong> Óptimo
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+      <!--begin::Footer-->
+      <footer class="app-footer" style="background-color: #192d63; color: #d4b012; padding: 1rem 0">
+        <div class="container-fluid text-center">
+          <strong>
+            &copy; 2025 Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" - UNACH.<br />
+            Carretera Puerto Madero Km. 10.5, Finca Santa Teresa, Tapachula, Chiapas, México | C.P.
+            30825 | Tel: (961) 6178000 ext. 5695
+          </strong>
+          <div style="font-size: 0.9rem; color: #fff">Todos los derechos reservados.</div>
+        </div>
+      </footer>
+      <!--end::Footer-->
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="../../../dist/js/adminlte.js"></script>
+    
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+      
+      // Event Listeners para formularios
+      document.getElementById('configGeneralForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Configuración general guardada exitosamente');
+      });
+      
+      document.getElementById('configNotificacionesForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Configuración de notificaciones guardada exitosamente');
+      });
+      
+      document.getElementById('configSeguridadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Configuración de seguridad guardada exitosamente');
+      });
+      
+      document.getElementById('configBackupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Configuración de backup guardada exitosamente');
+      });
+      
+      // Botones de acciones del sistema
+      document.getElementById('crearBackupBtn').addEventListener('click', function() {
+        if (confirm('¿Estás seguro de que quieres crear un backup manual?')) {
+          alert('Backup iniciado. Se notificará cuando esté completo.');
+        }
+      });
+      
+      document.getElementById('restaurarBackupBtn').addEventListener('click', function() {
+        alert('Función de restauración en desarrollo');
+      });
+      
+      document.getElementById('limpiarLogsBtn').addEventListener('click', function() {
+        if (confirm('¿Estás seguro de que quieres limpiar los logs antiguos?')) {
+          alert('Limpieza de logs iniciada.');
+        }
+      });
+      
+      document.getElementById('optimizarDBBtn').addEventListener('click', function() {
+        if (confirm('¿Estás seguro de que quieres optimizar la base de datos?')) {
+          alert('Optimización de base de datos iniciada.');
+        }
+      });
+      
+      // Función de logout
+      document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+          localStorage.removeItem('adminLoggedIn');
+          localStorage.removeItem('adminUser');
+          window.location.href = 'login.html';
+        }
+      });
+    </script>
+  </body>
+</html>

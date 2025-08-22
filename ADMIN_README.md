@@ -1,191 +1,258 @@
-# 🏛️ Área de Administración - FMH UNACH
+# 🏛️ Panel de Administración - FMH UNACH
 
-## 📋 Descripción
+## 📋 Descripción General
 
-El área de administración del Sistema de Buzón de Quejas, Sugerencias y Reconocimientos de la Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV, proporciona una interfaz completa para la gestión y administración de todas las entradas del sistema.
+Este es el panel de administración completo para el sistema de gestión de quejas, sugerencias y reconocimientos de la **Facultad de Medicina Humana "Dr. Manuel Velasco Suárez"** de la UNACH.
 
-## 🚀 Características Principales
+## 🚀 Características Implementadas
 
-### 🔐 **Sistema de Autenticación**
-- **Login seguro** con validación de credenciales
-- **Sesiones persistentes** con localStorage
-- **Protección de rutas** para usuarios no autenticados
+### ✅ **Módulos Completos**
 
-### 📊 **Dashboard Administrativo**
-- **Estadísticas en tiempo real** de quejas, sugerencias y reconocimientos
-- **Gráficos de actividad** (simulados)
-- **Tabla de últimas entradas** con acciones rápidas
-- **Resumen de casos pendientes**
+1. **🔐 Sistema de Login**
+   - Autenticación segura
+   - Credenciales por defecto: `admin` / `admin123`
+   - Redirección automática al dashboard
 
-### 🛠️ **Gestión de Contenido**
-- **CRUD completo** para quejas, sugerencias y reconocimientos
-- **Filtros avanzados** por estado, fecha, prioridad
-- **Búsqueda inteligente** por folio, asunto, remitente
-- **Exportación de datos** a Excel
+2. **📊 Dashboard Principal**
+   - Estadísticas en tiempo real
+   - Resumen de actividades
+   - Gráficos de actividad reciente
+   - Tabla de últimas entradas
 
-### 👥 **Gestión de Usuarios**
-- **Asignación de casos** a personal específico
-- **Seguimiento de responsabilidades**
-- **Comentarios administrativos**
+3. **⚠️ Gestión de Quejas**
+   - Lista completa de quejas
+   - Filtros por estado y categoría
+   - Búsqueda avanzada
+   - Estadísticas rápidas
+   - Modales para crear/editar
 
-## 🔑 **Acceso al Sistema**
+4. **💡 Gestión de Sugerencias**
+   - CRUD completo de sugerencias
+   - Categorización por tipo
+   - Sistema de prioridades
+   - Seguimiento de estados
+   - Comentarios administrativos
 
-### **Credenciales de Prueba**
+5. **⭐ Gestión de Reconocimientos**
+   - Gestión de reconocimientos
+   - Categorías por tipo de personal
+   - Estados de aprobación
+   - Sistema de prioridades
+   - Historial de cambios
+
+6. **👥 Gestión de Usuarios**
+   - Administración de usuarios del sistema
+   - Roles y permisos
+   - Estados de cuenta
+   - Gestión de departamentos
+   - Seguridad de contraseñas
+
+7. **📈 Reportes y Estadísticas**
+   - Gráficos interactivos con Chart.js
+   - Filtros por período
+   - Análisis de tendencias
+   - Exportación de datos
+   - Métricas de rendimiento
+
+8. **⚙️ Configuración del Sistema**
+   - Configuración general
+   - Notificaciones por email
+   - Políticas de seguridad
+   - Backup y mantenimiento
+   - Configuración SMTP
+
+## 🛠️ Tecnologías Utilizadas
+
+- **Frontend**: HTML5, CSS3, JavaScript ES6+
+- **Framework CSS**: Bootstrap 5.3.3
+- **Iconos**: Bootstrap Icons 1.11.3
+- **Gráficos**: Chart.js
+- **Tema**: AdminLTE 4
+- **Fuentes**: Source Sans 3
+- **Scrollbars**: OverlayScrollbars
+
+## 📁 Estructura de Archivos
+
 ```
-Usuario: admin
-Contraseña: admin123
+dist/pages/admin/
+├── login.html              # Página de inicio de sesión
+├── dashboard.html          # Dashboard principal
+├── quejas.html            # Gestión de quejas
+├── sugerencias.html       # Gestión de sugerencias
+├── reconocimientos.html   # Gestión de reconocimientos
+├── usuarios.html          # Gestión de usuarios
+├── reportes.html          # Reportes y estadísticas
+└── configuracion.html     # Configuración del sistema
 ```
 
-### **URLs de Acceso**
-- **Login**: `/dist/pages/admin/login.html`
-- **Dashboard**: `/dist/pages/admin/dashboard.html`
-- **Gestión de Quejas**: `/dist/pages/admin/quejas.html`
+## 🔑 Acceso al Sistema
 
-## 📁 **Estructura de Archivos**
+### **Credenciales por Defecto**
+- **Usuario**: `admin`
+- **Contraseña**: `admin123`
 
+### **URL de Acceso**
 ```
-src/html/pages/admin/
-├── login.astro              # Página de autenticación
-├── dashboard.astro          # Dashboard principal
-├── quejas.astro            # Gestión de quejas
-├── sugerencias.astro       # Gestión de sugerencias (pendiente)
-├── reconocimientos.astro   # Gestión de reconocimientos (pendiente)
-├── usuarios.astro          # Gestión de usuarios (pendiente)
-├── reportes.astro          # Reportes y estadísticas (pendiente)
-└── configuracion.astro     # Configuración del sistema (pendiente)
-
-src/html/components/admin/
-└── _admin-sidenav.astro    # Navegación lateral del admin
+http://localhost:3000/admin.html
 ```
 
-## 🎨 **Diseño y UX**
+## 📱 Funcionalidades por Módulo
+
+### **Dashboard Principal**
+- Estadísticas en tiempo real
+- Gráficos de actividad
+- Resumen de entradas recientes
+- Navegación rápida a todos los módulos
+
+### **Gestión de Quejas**
+- ✅ Crear nueva queja
+- 👁️ Ver detalles completos
+- ✏️ Editar información
+- 🗑️ Eliminar queja
+- 🔍 Búsqueda y filtros
+- 📊 Estadísticas por estado
+
+### **Gestión de Sugerencias**
+- ✅ Crear nueva sugerencia
+- 👁️ Ver detalles completos
+- ✏️ Editar información
+- 🗑️ Eliminar sugerencia
+- 🔍 Búsqueda avanzada
+- 📊 Estadísticas por categoría
+- 🏷️ Sistema de prioridades
+
+### **Gestión de Reconocimientos**
+- ✅ Crear nuevo reconocimiento
+- 👁️ Ver detalles completos
+- ✏️ Editar información
+- 🗑️ Eliminar reconocimiento
+- 🔍 Filtros por estado y categoría
+- 📊 Estadísticas por tipo
+- 🏷️ Sistema de prioridades
+
+### **Gestión de Usuarios**
+- ✅ Crear nuevo usuario
+- 👁️ Ver perfil completo
+- ✏️ Editar información
+- 🗑️ Eliminar usuario
+- 🔍 Búsqueda por nombre/email
+- 🔒 Gestión de roles y estados
+- 📊 Estadísticas de usuarios
+
+### **Reportes y Estadísticas**
+- 📊 Gráficos interactivos
+- 📅 Filtros por período
+- 📈 Análisis de tendencias
+- 📋 Tablas de resumen
+- 💾 Exportación de datos
+- 🔍 Filtros avanzados
+
+### **Configuración del Sistema**
+- ⚙️ Configuración general
+- 📧 Configuración de notificaciones
+- 🔒 Políticas de seguridad
+- 💾 Backup y mantenimiento
+- 🌐 Configuración SMTP
+
+## 🎨 Características de Diseño
 
 ### **Colores Institucionales**
-- **Azul UNACH**: `#192D63` (fondo principal)
-- **Dorado UNACH**: `#D4B012` (acentos y texto destacado)
-- **Blanco**: Texto principal y fondos claros
+- **Azul UNACH**: `#192d63`
+- **Dorado UNACH**: `#d4b012`
+- **Blanco**: `#ffffff`
 
-### **Componentes de Interfaz**
-- **Sidebar fijo** con navegación lateral
-- **Tarjetas informativas** con estadísticas
-- **Tablas responsivas** con acciones
-- **Modales** para edición y visualización
-- **Filtros y búsqueda** avanzada
+### **Responsive Design**
+- ✅ Compatible con móviles
+- ✅ Tablet-friendly
+- ✅ Desktop optimizado
+- ✅ Navegación táctil
 
-## 🔧 **Funcionalidades Implementadas**
+### **Accesibilidad**
+- ✅ Contraste adecuado
+- ✅ Navegación por teclado
+- ✅ Etiquetas descriptivas
+- ✅ Iconos intuitivos
 
-### ✅ **Completadas**
-- [x] Sistema de login con autenticación
-- [x] Dashboard con estadísticas
-- [x] Gestión completa de quejas (CRUD)
-- [x] Filtros y búsqueda
-- [x] Modales para edición
-- [x] Navegación lateral específica
-- [x] Protección de rutas
-- [x] Enlace desde la barra superior
+## 🔧 Configuración del Servidor
 
-### 🚧 **Pendientes**
-- [ ] Gestión de sugerencias
-- [ ] Gestión de reconocimientos
-- [ ] Gestión de usuarios
-- [ ] Reportes y estadísticas avanzadas
-- [ ] Configuración del sistema
-- [ ] Exportación real a Excel
-- [ ] Gráficos con Chart.js
-- [ ] Base de datos real
+### **Requisitos**
+- Servidor web (Apache, Nginx, o servidor local)
+- Navegador moderno (Chrome, Firefox, Safari, Edge)
+- JavaScript habilitado
 
-## 🛡️ **Seguridad**
+### **Instalación Local**
+1. Clona o descarga el proyecto
+2. Coloca los archivos en tu servidor web
+3. Accede a `admin.html`
+4. Inicia sesión con las credenciales por defecto
 
-### **Medidas Implementadas**
-- **Validación de sesión** en cada página
-- **Redirección automática** a login si no autenticado
-- **Protección de rutas** del lado cliente
-- **Logout seguro** con limpieza de datos
+## 📊 Datos de Ejemplo
 
-### **Recomendaciones para Producción**
-- Implementar autenticación del lado servidor
-- Usar HTTPS obligatorio
-- Implementar rate limiting
-- Agregar validación de entrada
-- Usar base de datos segura
-- Implementar auditoría de acciones
+El sistema incluye datos simulados para demostrar todas las funcionalidades:
 
-## 📱 **Responsividad**
+- **Quejas**: 15 entradas de ejemplo
+- **Sugerencias**: 8 entradas de ejemplo
+- **Reconocimientos**: 12 entradas de ejemplo
+- **Usuarios**: 4 usuarios de ejemplo
+- **Estadísticas**: Datos simulados para gráficos
 
-El sistema es completamente responsive y funciona en:
-- **Desktop** (1200px+)
-- **Tablet** (768px - 1199px)
-- **Mobile** (320px - 767px)
+## 🚀 Funcionalidades Futuras
 
-## 🚀 **Cómo Usar**
+### **Próximas Implementaciones**
+- [ ] Sistema de notificaciones push
+- [ ] API REST para integración
+- [ ] Sistema de auditoría completo
+- [ ] Backup automático a la nube
+- [ ] Dashboard móvil nativo
+- [ ] Integración con sistemas externos
 
-### **1. Múltiples Formas de Acceder al Sistema**
+### **Mejoras Planificadas**
+- [ ] Sistema de roles más granular
+- [ ] Workflow de aprobación
+- [ ] Reportes personalizables
+- [ ] Exportación a más formatos
+- [ ] Sistema de plantillas de email
 
-#### **Opción A: Comando directo (RECOMENDADO)**
-```bash
-npm run admin
-```
-Esto abrirá un servidor en `http://localhost:3001` con acceso directo al panel.
+## 🐛 Solución de Problemas
 
-#### **Opción B: Archivo de acceso rápido**
-```bash
-npm run open-admin
-```
-O simplemente hacer doble clic en `admin.html`
+### **Problemas Comunes**
 
-#### **Opción C: Script de Windows**
-Hacer doble clic en `abrir-admin.bat`
+1. **No se puede acceder al login**
+   - Verifica que el servidor esté funcionando
+   - Confirma que las rutas sean correctas
 
-#### **Opción D: Acceso web directo**
-1. Abrir en navegador: `file:///[ruta-del-proyecto]/dist/admin-index.html`
-2. O navegar a: `dist/pages/admin/login.html`
+2. **Los gráficos no se muestran**
+   - Verifica la conexión a internet (Chart.js CDN)
+   - Confirma que JavaScript esté habilitado
 
-#### **Opción E: Desde la página principal**
-1. Navega a la página principal
-2. Haz clic en "Administración" en la barra superior
-3. Ingresa las credenciales: `admin` / `admin123`
+3. **Los modales no funcionan**
+   - Verifica que Bootstrap esté cargado correctamente
+   - Confirma que no haya conflictos de JavaScript
 
-### **2. Navegar por el Dashboard**
-- **Dashboard**: Vista general con estadísticas
-- **Gestión de Quejas**: Administrar quejas recibidas
-- **Volver al Sitio**: Regresar al sitio público
+### **Logs del Sistema**
+- Revisa la consola del navegador para errores
+- Verifica la pestaña Network para problemas de carga
+- Confirma que todos los archivos CSS/JS se carguen
 
-### **3. Gestionar Quejas**
-- **Ver**: Hacer clic en el ícono de ojo
-- **Editar**: Hacer clic en el ícono de lápiz
-- **Eliminar**: Hacer clic en el ícono de basura
-- **Nueva Queja**: Botón "Nueva Queja"
+## 📞 Soporte
 
-### **4. Filtrar y Buscar**
-- Usar los filtros por estado, fecha, prioridad
-- Buscar por folio o asunto
-- Aplicar múltiples filtros simultáneamente
+### **Contacto Técnico**
+- **Desarrollador**: Sistema de Gestión FMH UNACH
+- **Email**: soporte@unach.mx
+- **Teléfono**: (961) 6178000 ext. 5695
 
-## 🔄 **Compilación y Desarrollo**
+### **Documentación Adicional**
+- Manual de usuario en desarrollo
+- Guía de administración del sistema
+- FAQ del sistema
 
-### **Compilar el Proyecto**
-```bash
-npm run production
-```
+## 📄 Licencia
 
-### **Modo Desarrollo**
-```bash
-npm run dev
-```
-
-### **Acceder a las Páginas**
-Después de la compilación, las páginas estarán disponibles en:
-- `/dist/pages/admin/login.html`
-- `/dist/pages/admin/dashboard.html`
-- `/dist/pages/admin/quejas.html`
-
-## 📞 **Soporte**
-
-Para soporte técnico o preguntas sobre el área de administración:
-- **Desarrollador**: [Tu información de contacto]
-- **Facultad**: FMH UNACH Campus IV
-- **Email**: [email de contacto]
+Este proyecto está desarrollado para la **Facultad de Medicina Humana "Dr. Manuel Velasco Suárez"** de la UNACH.
 
 ---
 
-**© 2024 Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV - UNACH** 
+**🏛️ Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" - UNACH**  
+**📍 Carretera Puerto Madero Km. 10.5, Finca Santa Teresa, Tapachula, Chiapas, México**  
+**📞 Tel: (961) 6178000 ext. 5695**  
+**🌐 www.medicina.unach.mx** 
