@@ -1,0 +1,547 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import AdminSidenav from "@components/admin/_admin-sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Gestión de Reconocimientos | FMH UNACH";
+const path = "../../../dist";
+const mainPage = "reconocimientos";
+const page = "reconocimientos";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <AdminSidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Gestión de Reconocimientos</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Filtros y Búsqueda -->
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Buscar reconocimientos..." id="searchInput">
+                  <button class="btn btn-primary" type="button" id="searchBtn">
+                    <i class="bi bi-search"></i> Buscar
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" id="filterEstado">
+                  <option value="">Todos los estados</option>
+                  <option value="pendiente">Pendiente</option>
+                  <option value="aprobado">Aprobado</option>
+                  <option value="publicado">Publicado</option>
+                  <option value="rechazado">Rechazado</option>
+                </select>
+              </div>
+              <div class="col-md-3 text-end">
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addReconocimientoModal">
+                  <i class="bi bi-plus-circle"></i> Nuevo Reconocimiento
+                </button>
+              </div>
+            </div>
+
+            <!-- Estadísticas Rápidas -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                  <div class="card-body text-center">
+                    <h4 id="totalReconocimientos">0</h4>
+                    <p class="mb-0">Total Reconocimientos</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-info text-white">
+                  <div class="card-body text-center">
+                    <h4 id="pendientes">0</h4>
+                    <p class="mb-0">Pendientes</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-success text-white">
+                  <div class="card-body text-center">
+                    <h4 id="aprobados">0</h4>
+                    <p class="mb-0">Aprobados</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                  <div class="card-body text-center">
+                    <h4 id="publicados">0</h4>
+                    <p class="mb-0">Publicados</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla de Reconocimientos -->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Lista de Reconocimientos</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="reconocimientosTable">
+                    <thead>
+                      <tr>
+                        <th>Folio</th>
+                        <th>Fecha</th>
+                        <th>Remitente</th>
+                        <th>Persona Reconocida</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                        <th>Prioridad</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="reconocimientosTableBody">
+                      <!-- Se llenará dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+
+    <!-- Modal para Nuevo Reconocimiento -->
+    <div class="modal fade" id="addReconocimientoModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Nuevo Reconocimiento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="reconocimientoForm">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Remitente</label>
+                  <input type="text" class="form-control" name="remitente" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" name="email" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Persona Reconocida</label>
+                <input type="text" class="form-control" name="personaReconocida" placeholder="Nombre completo de la persona a reconocer" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Cargo o Función</label>
+                <input type="text" class="form-control" name="cargo" placeholder="Cargo, función o área de trabajo" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Motivo del Reconocimiento</label>
+                <textarea class="form-control" name="motivo" rows="4" placeholder="Describa detalladamente el motivo del reconocimiento" required></textarea>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Categoría</label>
+                  <select class="form-select" name="categoria" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="excelencia_academica">Excelencia Académica</option>
+                    <option value="servicio_dedicado">Servicio Dedicado</option>
+                    <option value="innovacion">Innovación</option>
+                    <option value="liderazgo">Liderazgo</option>
+                    <option value="compromiso_estudiantil">Compromiso Estudiantil</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Evidencia</label>
+                  <input type="file" class="form-control" name="evidencia" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                  <small class="form-text text-muted">Documentos o imágenes que respalden el reconocimiento</small>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-warning" id="saveReconocimientoBtn">Guardar Reconocimiento</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Ver/Editar Reconocimiento -->
+    <div class="modal fade" id="editReconocimientoModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Reconocimiento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editReconocimientoForm">
+              <input type="hidden" name="id" id="editId">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Remitente</label>
+                  <input type="text" class="form-control" name="remitente" id="editRemitente" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Estado</label>
+                  <select class="form-select" name="estado" id="editEstado" required>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="aprobado">Aprobado</option>
+                    <option value="publicado">Publicado</option>
+                    <option value="rechazado">Rechazado</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Persona Reconocida</label>
+                <input type="text" class="form-control" name="personaReconocida" id="editPersonaReconocida" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Cargo o Función</label>
+                <input type="text" class="form-control" name="cargo" id="editCargo" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Motivo del Reconocimiento</label>
+                <textarea class="form-control" name="motivo" id="editMotivo" rows="4" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Comentarios del Administrador</label>
+                <textarea class="form-control" name="comentarios" id="editComentarios" rows="3" placeholder="Comentarios, observaciones o decisiones sobre el reconocimiento"></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Fecha de Aprobación/Publicación</label>
+                <input type="date" class="form-control" name="fechaAprobacion" id="editFechaAprobacion">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="updateReconocimientoBtn">Actualizar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+
+      // Datos de ejemplo
+      let reconocimientos = [
+        {
+          id: 1,
+          folio: 'RC-2024-001',
+          fecha: '2024-01-20',
+          remitente: 'Carlos Ruiz',
+          email: 'carlos.ruiz@email.com',
+          personaReconocida: 'Dr. Manuel García',
+          cargo: 'Profesor Titular',
+          motivo: 'Excelente atención y dedicación en la enseñanza de anatomía, siempre disponible para resolver dudas de los estudiantes.',
+          categoria: 'excelencia_academica',
+          estado: 'pendiente',
+          prioridad: 'alta',
+          comentarios: '',
+          fechaAprobacion: ''
+        },
+        {
+          id: 2,
+          folio: 'RC-2024-002',
+          fecha: '2024-01-19',
+          remitente: 'María López',
+          email: 'maria.lopez@email.com',
+          personaReconocida: 'Lic. Ana Martínez',
+          cargo: 'Coordinadora de Servicios Estudiantiles',
+          motivo: 'Increíble compromiso con el bienestar estudiantil, organizando actividades extracurriculares que enriquecen la experiencia universitaria.',
+          categoria: 'servicio_dedicado',
+          estado: 'aprobado',
+          prioridad: 'media',
+          comentarios: 'Reconocimiento aprobado por el comité de excelencia',
+          fechaAprobacion: '2024-01-25'
+        },
+        {
+          id: 3,
+          folio: 'RC-2024-003',
+          fecha: '2024-01-18',
+          remitente: 'Roberto Silva',
+          email: 'roberto.silva@email.com',
+          personaReconocida: 'Dr. Patricia Hernández',
+          cargo: 'Directora de Investigación',
+          motivo: 'Liderazgo excepcional en proyectos de investigación que han posicionado a la facultad a nivel nacional.',
+          categoria: 'liderazgo',
+          estado: 'publicado',
+          prioridad: 'alta',
+          comentarios: 'Publicado en el boletín institucional',
+          fechaAprobacion: '2024-01-30'
+        }
+      ];
+
+      // Inicializar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        actualizarEstadisticas();
+        cargarTabla();
+        configurarEventos();
+      });
+
+      function actualizarEstadisticas() {
+        const total = reconocimientos.length;
+        const pendientes = reconocimientos.filter(r => r.estado === 'pendiente').length;
+        const aprobados = reconocimientos.filter(r => r.estado === 'aprobado').length;
+        const publicados = reconocimientos.filter(r => r.estado === 'publicado').length;
+
+        document.getElementById('totalReconocimientos').textContent = total;
+        document.getElementById('pendientes').textContent = pendientes;
+        document.getElementById('aprobados').textContent = aprobados;
+        document.getElementById('publicados').textContent = publicados;
+      }
+
+      function cargarTabla() {
+        const tbody = document.getElementById('reconocimientosTableBody');
+        tbody.innerHTML = '';
+
+        reconocimientos.forEach(reconocimiento => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${reconocimiento.folio}</td>
+            <td>${reconocimiento.fecha}</td>
+            <td>${reconocimiento.remitente}</td>
+            <td>${reconocimiento.personaReconocida}</td>
+            <td>${reconocimiento.motivo.substring(0, 60)}...</td>
+            <td><span class="badge ${getEstadoBadgeClass(reconocimiento.estado)}">${getEstadoText(reconocimiento.estado)}</span></td>
+            <td><span class="badge ${getPrioridadBadgeClass(reconocimiento.prioridad)}">${reconocimiento.prioridad}</span></td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="verReconocimiento(${reconocimiento.id})">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-warning" onclick="editarReconocimiento(${reconocimiento.id})">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="eliminarReconocimiento(${reconocimiento.id})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function getEstadoBadgeClass(estado) {
+        const clases = {
+          'pendiente': 'bg-info',
+          'aprobado': 'bg-success',
+          'publicado': 'bg-primary',
+          'rechazado': 'bg-danger'
+        };
+        return clases[estado] || 'bg-secondary';
+      }
+
+      function getEstadoText(estado) {
+        const textos = {
+          'pendiente': 'Pendiente',
+          'aprobado': 'Aprobado',
+          'publicado': 'Publicado',
+          'rechazado': 'Rechazado'
+        };
+        return textos[estado] || estado;
+      }
+
+      function getPrioridadBadgeClass(prioridad) {
+        const clases = {
+          'baja': 'bg-success',
+          'media': 'bg-warning',
+          'alta': 'bg-danger'
+        };
+        return clases[prioridad] || 'bg-secondary';
+      }
+
+      function configurarEventos() {
+        // Búsqueda
+        document.getElementById('searchBtn').addEventListener('click', function() {
+          const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+          const filteredReconocimientos = reconocimientos.filter(r => 
+            r.personaReconocida.toLowerCase().includes(searchTerm) ||
+            r.remitente.toLowerCase().includes(searchTerm) ||
+            r.motivo.toLowerCase().includes(searchTerm)
+          );
+          cargarTablaFiltrada(filteredReconocimientos);
+        });
+
+        // Filtro por estado
+        document.getElementById('filterEstado').addEventListener('change', function() {
+          const estado = this.value;
+          if (estado) {
+            const filteredReconocimientos = reconocimientos.filter(r => r.estado === estado);
+            cargarTablaFiltrada(filteredReconocimientos);
+          } else {
+            cargarTabla();
+          }
+        });
+
+        // Guardar nuevo reconocimiento
+        document.getElementById('saveReconocimientoBtn').addEventListener('click', function() {
+          guardarReconocimiento();
+        });
+
+        // Actualizar reconocimiento
+        document.getElementById('updateReconocimientoBtn').addEventListener('click', function() {
+          actualizarReconocimiento();
+        });
+      }
+
+      function cargarTablaFiltrada(reconocimientosFiltrados) {
+        const tbody = document.getElementById('reconocimientosTableBody');
+        tbody.innerHTML = '';
+
+        reconocimientosFiltrados.forEach(reconocimiento => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${reconocimiento.folio}</td>
+            <td>${reconocimiento.fecha}</td>
+            <td>${reconocimiento.remitente}</td>
+            <td>${reconocimiento.personaReconocida}</td>
+            <td>${reconocimiento.motivo.substring(0, 60)}...</td>
+            <td><span class="badge ${getEstadoBadgeClass(reconocimiento.estado)}">${getEstadoText(reconocimiento.estado)}</span></td>
+            <td><span class="badge ${getPrioridadBadgeClass(reconocimiento.prioridad)}">${reconocimiento.prioridad}</span></td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="verReconocimiento(${reconocimiento.id})">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-warning" onclick="editarReconocimiento(${reconocimiento.id})">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="eliminarReconocimiento(${reconocimiento.id})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function guardarReconocimiento() {
+        const form = document.getElementById('reconocimientoForm');
+        const formData = new FormData(form);
+        
+        const nuevoReconocimiento = {
+          id: reconocimientos.length + 1,
+          folio: `RC-2024-${String(reconocimientos.length + 1).padStart(3, '0')}`,
+          fecha: new Date().toISOString().split('T')[0],
+          remitente: formData.get('remitente'),
+          email: formData.get('email'),
+          personaReconocida: formData.get('personaReconocida'),
+          cargo: formData.get('cargo'),
+          motivo: formData.get('motivo'),
+          categoria: formData.get('categoria'),
+          estado: 'pendiente',
+          prioridad: 'media',
+          comentarios: '',
+          fechaAprobacion: ''
+        };
+
+        reconocimientos.push(nuevoReconocimiento);
+        actualizarEstadisticas();
+        cargarTabla();
+        
+        // Cerrar modal y limpiar formulario
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addReconocimientoModal'));
+        modal.hide();
+        form.reset();
+        
+        alert('Reconocimiento guardado exitosamente');
+      }
+
+      function verReconocimiento(id) {
+        const reconocimiento = reconocimientos.find(r => r.id === id);
+        if (reconocimiento) {
+          alert(`Ver reconocimiento:\n\nPersona: ${reconocimiento.personaReconocida}\nCargo: ${reconocimiento.cargo}\nMotivo: ${reconocimiento.motivo}`);
+        }
+      }
+
+      function editarReconocimiento(id) {
+        const reconocimiento = reconocimientos.find(r => r.id === id);
+        if (reconocimiento) {
+          document.getElementById('editId').value = reconocimiento.id;
+          document.getElementById('editRemitente').value = reconocimiento.remitente;
+          document.getElementById('editPersonaReconocida').value = reconocimiento.personaReconocida;
+          document.getElementById('editCargo').value = reconocimiento.cargo;
+          document.getElementById('editMotivo').value = reconocimiento.motivo;
+          document.getElementById('editEstado').value = reconocimiento.estado;
+          document.getElementById('editComentarios').value = reconocimiento.comentarios;
+          document.getElementById('editFechaAprobacion').value = reconocimiento.fechaAprobacion;
+          
+          const modal = new bootstrap.Modal(document.getElementById('editReconocimientoModal'));
+          modal.show();
+        }
+      }
+
+      function actualizarReconocimiento() {
+        const form = document.getElementById('editReconocimientoForm');
+        const formData = new FormData(form);
+        const id = parseInt(formData.get('id'));
+        
+        const index = reconocimientos.findIndex(r => r.id === id);
+        if (index !== -1) {
+          reconocimientos[index] = {
+            ...reconocimientos[index],
+            remitente: formData.get('remitente'),
+            personaReconocida: formData.get('personaReconocida'),
+            cargo: formData.get('cargo'),
+            motivo: formData.get('motivo'),
+            estado: formData.get('estado'),
+            comentarios: formData.get('comentarios'),
+            fechaAprobacion: formData.get('fechaAprobacion')
+          };
+          
+          actualizarEstadisticas();
+          cargarTabla();
+          
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editReconocimientoModal'));
+          modal.hide();
+          
+          alert('Reconocimiento actualizado exitosamente');
+        }
+      }
+
+      function eliminarReconocimiento(id) {
+        if (confirm('¿Estás seguro de que quieres eliminar este reconocimiento?')) {
+          reconocimientos = reconocimientos.filter(r => r.id !== id);
+          actualizarEstadisticas();
+          cargarTabla();
+          alert('Reconocimiento eliminado exitosamente');
+        }
+      }
+    </script>
+  </body>
+</html>

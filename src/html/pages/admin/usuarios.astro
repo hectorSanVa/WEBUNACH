@@ -1,0 +1,557 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import AdminSidenav from "@components/admin/_admin-sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Gestión de Usuarios | FMH UNACH";
+const path = "../../../dist";
+const mainPage = "usuarios";
+const page = "usuarios";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <AdminSidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Gestión de Usuarios</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Filtros y Búsqueda -->
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Buscar usuarios..." id="searchInput">
+                  <button class="btn btn-primary" type="button" id="searchBtn">
+                    <i class="bi bi-search"></i> Buscar
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" id="filterRol">
+                  <option value="">Todos los roles</option>
+                  <option value="admin">Administrador</option>
+                  <option value="moderador">Moderador</option>
+                  <option value="usuario">Usuario</option>
+                  <option value="estudiante">Estudiante</option>
+                  <option value="profesor">Profesor</option>
+                </select>
+              </div>
+              <div class="col-md-3 text-end">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUsuarioModal">
+                  <i class="bi bi-plus-circle"></i> Nuevo Usuario
+                </button>
+              </div>
+            </div>
+
+            <!-- Estadísticas Rápidas -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                  <div class="card-body text-center">
+                    <h4 id="totalUsuarios">0</h4>
+                    <p class="mb-0">Total Usuarios</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-success text-white">
+                  <div class="card-body text-center">
+                    <h4 id="usuariosActivos">0</h4>
+                    <p class="mb-0">Activos</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                  <div class="card-body text-center">
+                    <h4 id="usuariosPendientes">0</h4>
+                    <p class="mb-0">Pendientes</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-danger text-white">
+                  <div class="card-body text-center">
+                    <h4 id="usuariosInactivos">0</h4>
+                    <p class="mb-0">Inactivos</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla de Usuarios -->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Lista de Usuarios</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="usuariosTable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Último Acceso</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="usuariosTableBody">
+                      <!-- Se llenará dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+
+    <!-- Modal para Nuevo Usuario -->
+    <div class="modal fade" id="addUsuarioModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Nuevo Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="usuarioForm">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Nombre Completo</label>
+                  <input type="text" class="form-control" name="nombre" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" name="email" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" name="password" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Confirmar Contraseña</label>
+                  <input type="password" class="form-control" name="confirmPassword" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Rol</label>
+                  <select class="form-select" name="rol" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="admin">Administrador</option>
+                    <option value="moderador">Moderador</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="estudiante">Estudiante</option>
+                    <option value="profesor">Profesor</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Estado</label>
+                  <select class="form-select" name="estado" required>
+                    <option value="activo">Activo</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="inactivo">Inactivo</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Departamento/Área</label>
+                <input type="text" class="form-control" name="departamento" placeholder="Departamento o área de trabajo">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" id="saveUsuarioBtn">Guardar Usuario</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Editar Usuario -->
+    <div class="modal fade" id="editUsuarioModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Usuario</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editUsuarioForm">
+              <input type="hidden" name="id" id="editId">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Nombre Completo</label>
+                  <input type="text" class="form-control" name="nombre" id="editNombre" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" name="email" id="editEmail" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Rol</label>
+                  <select class="form-select" name="rol" id="editRol" required>
+                    <option value="admin">Administrador</option>
+                    <option value="moderador">Moderador</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="estudiante">Estudiante</option>
+                    <option value="profesor">Profesor</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Estado</label>
+                  <select class="form-select" name="estado" id="editEstado" required>
+                    <option value="activo">Activo</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="inactivo">Inactivo</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Departamento/Área</label>
+                <input type="text" class="form-control" name="departamento" id="editDepartamento">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Comentarios</label>
+                <textarea class="form-control" name="comentarios" id="editComentarios" rows="3" placeholder="Comentarios sobre el usuario"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="updateUsuarioBtn">Actualizar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+
+      // Datos de ejemplo
+      let usuarios = [
+        {
+          id: 1,
+          nombre: 'Administrador Principal',
+          email: 'admin@unach.edu.mx',
+          rol: 'admin',
+          estado: 'activo',
+          departamento: 'Sistemas',
+          ultimoAcceso: '2024-01-20 15:30',
+          comentarios: 'Usuario administrador principal del sistema'
+        },
+        {
+          id: 2,
+          nombre: 'María González',
+          email: 'maria.gonzalez@unach.edu.mx',
+          rol: 'moderador',
+          estado: 'activo',
+          departamento: 'Académico',
+          ultimoAcceso: '2024-01-20 14:15',
+          comentarios: 'Moderadora de contenido académico'
+        },
+        {
+          id: 3,
+          nombre: 'Dr. Carlos Ruiz',
+          email: 'carlos.ruiz@unach.edu.mx',
+          rol: 'profesor',
+          estado: 'activo',
+          departamento: 'Medicina',
+          ultimoAcceso: '2024-01-20 12:45',
+          comentarios: 'Profesor titular del departamento de medicina'
+        },
+        {
+          id: 4,
+          nombre: 'Ana Martínez',
+          email: 'ana.martinez@unach.edu.mx',
+          rol: 'estudiante',
+          estado: 'pendiente',
+          departamento: 'Estudiantil',
+          ultimoAcceso: '2024-01-19 16:20',
+          comentarios: 'Estudiante de medicina, pendiente de verificación'
+        }
+      ];
+
+      // Inicializar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        actualizarEstadisticas();
+        cargarTabla();
+        configurarEventos();
+      });
+
+      function actualizarEstadisticas() {
+        const total = usuarios.length;
+        const activos = usuarios.filter(u => u.estado === 'activo').length;
+        const pendientes = usuarios.filter(u => u.estado === 'pendiente').length;
+        const inactivos = usuarios.filter(u => u.estado === 'inactivo').length;
+
+        document.getElementById('totalUsuarios').textContent = total;
+        document.getElementById('usuariosActivos').textContent = activos;
+        document.getElementById('usuariosPendientes').textContent = pendientes;
+        document.getElementById('usuariosInactivos').textContent = inactivos;
+      }
+
+      function cargarTabla() {
+        const tbody = document.getElementById('usuariosTableBody');
+        tbody.innerHTML = '';
+
+        usuarios.forEach(usuario => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${usuario.id}</td>
+            <td>${usuario.nombre}</td>
+            <td>${usuario.email}</td>
+            <td><span class="badge ${getRolBadgeClass(usuario.rol)}">${getRolText(usuario.rol)}</span></td>
+            <td><span class="badge ${getEstadoBadgeClass(usuario.estado)}">${getEstadoText(usuario.estado)}</span></td>
+            <td>${usuario.ultimoAcceso}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="verUsuario(${usuario.id})">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-warning" onclick="editarUsuario(${usuario.id})">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="eliminarUsuario(${usuario.id})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function getRolBadgeClass(rol) {
+        const clases = {
+          'admin': 'bg-danger',
+          'moderador': 'bg-warning',
+          'usuario': 'bg-secondary',
+          'estudiante': 'bg-info',
+          'profesor': 'bg-success'
+        };
+        return clases[rol] || 'bg-secondary';
+      }
+
+      function getRolText(rol) {
+        const textos = {
+          'admin': 'Administrador',
+          'moderador': 'Moderador',
+          'usuario': 'Usuario',
+          'estudiante': 'Estudiante',
+          'profesor': 'Profesor'
+        };
+        return textos[rol] || rol;
+      }
+
+      function getEstadoBadgeClass(estado) {
+        const clases = {
+          'activo': 'bg-success',
+          'pendiente': 'bg-warning',
+          'inactivo': 'bg-danger'
+        };
+        return clases[estado] || 'bg-secondary';
+      }
+
+      function getEstadoText(estado) {
+        const textos = {
+          'activo': 'Activo',
+          'pendiente': 'Pendiente',
+          'inactivo': 'Inactivo'
+        };
+        return textos[estado] || estado;
+      }
+
+      function configurarEventos() {
+        // Búsqueda
+        document.getElementById('searchBtn').addEventListener('click', function() {
+          const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+          const filteredUsuarios = usuarios.filter(u => 
+            u.nombre.toLowerCase().includes(searchTerm) ||
+            u.email.toLowerCase().includes(searchTerm) ||
+            u.departamento.toLowerCase().includes(searchTerm)
+          );
+          cargarTablaFiltrada(filteredUsuarios);
+        });
+
+        // Filtro por rol
+        document.getElementById('filterRol').addEventListener('change', function() {
+          const rol = this.value;
+          if (rol) {
+            const filteredUsuarios = usuarios.filter(u => u.rol === rol);
+            cargarTablaFiltrada(filteredUsuarios);
+          } else {
+            cargarTabla();
+          }
+        });
+
+        // Guardar nuevo usuario
+        document.getElementById('saveUsuarioBtn').addEventListener('click', function() {
+          guardarUsuario();
+        });
+
+        // Actualizar usuario
+        document.getElementById('updateUsuarioBtn').addEventListener('click', function() {
+          actualizarUsuario();
+        });
+      }
+
+      function cargarTablaFiltrada(usuariosFiltrados) {
+        const tbody = document.getElementById('usuariosTableBody');
+        tbody.innerHTML = '';
+
+        usuariosFiltrados.forEach(usuario => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${usuario.id}</td>
+            <td>${usuario.nombre}</td>
+            <td>${usuario.email}</td>
+            <td><span class="badge ${getRolBadgeClass(usuario.rol)}">${getRolText(usuario.rol)}</span></td>
+            <td><span class="badge ${getEstadoBadgeClass(usuario.estado)}">${getEstadoText(usuario.estado)}</span></td>
+            <td>${usuario.ultimoAcceso}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="verUsuario(${usuario.id})">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-warning" onclick="editarUsuario(${usuario.id})">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="eliminarUsuario(${usuario.id})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function guardarUsuario() {
+        const form = document.getElementById('usuarioForm');
+        const formData = new FormData(form);
+        
+        // Validar contraseñas
+        if (formData.get('password') !== formData.get('confirmPassword')) {
+          alert('Las contraseñas no coinciden');
+          return;
+        }
+        
+        const nuevoUsuario = {
+          id: usuarios.length + 1,
+          nombre: formData.get('nombre'),
+          email: formData.get('email'),
+          rol: formData.get('rol'),
+          estado: formData.get('estado'),
+          departamento: formData.get('departamento'),
+          ultimoAcceso: new Date().toLocaleString('es-MX'),
+          comentarios: ''
+        };
+
+        usuarios.push(nuevoUsuario);
+        actualizarEstadisticas();
+        cargarTabla();
+        
+        // Cerrar modal y limpiar formulario
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addUsuarioModal'));
+        modal.hide();
+        form.reset();
+        
+        alert('Usuario guardado exitosamente');
+      }
+
+      function verUsuario(id) {
+        const usuario = usuarios.find(u => u.id === id);
+        if (usuario) {
+          alert(`Ver usuario:\n\nNombre: ${usuario.nombre}\nEmail: ${usuario.email}\nRol: ${getRolText(usuario.rol)}\nEstado: ${getEstadoText(usuario.estado)}\nDepartamento: ${usuario.departamento}`);
+        }
+      }
+
+      function editarUsuario(id) {
+        const usuario = usuarios.find(u => u.id === id);
+        if (usuario) {
+          document.getElementById('editId').value = usuario.id;
+          document.getElementById('editNombre').value = usuario.nombre;
+          document.getElementById('editEmail').value = usuario.email;
+          document.getElementById('editRol').value = usuario.rol;
+          document.getElementById('editEstado').value = usuario.estado;
+          document.getElementById('editDepartamento').value = usuario.departamento;
+          document.getElementById('editComentarios').value = usuario.comentarios;
+          
+          const modal = new bootstrap.Modal(document.getElementById('editUsuarioModal'));
+          modal.show();
+        }
+      }
+
+      function actualizarUsuario() {
+        const form = document.getElementById('editUsuarioForm');
+        const formData = new FormData(form);
+        const id = parseInt(formData.get('id'));
+        
+        const index = usuarios.findIndex(u => u.id === id);
+        if (index !== -1) {
+          usuarios[index] = {
+            ...usuarios[index],
+            nombre: formData.get('nombre'),
+            email: formData.get('email'),
+            rol: formData.get('rol'),
+            estado: formData.get('estado'),
+            departamento: formData.get('departamento'),
+            comentarios: formData.get('comentarios')
+          };
+          
+          actualizarEstadisticas();
+          cargarTabla();
+          
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editUsuarioModal'));
+          modal.hide();
+          
+          alert('Usuario actualizado exitosamente');
+        }
+      }
+
+      function eliminarUsuario(id) {
+        if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+          usuarios = usuarios.filter(u => u.id !== id);
+          actualizarEstadisticas();
+          cargarTabla();
+          alert('Usuario eliminado exitosamente');
+        }
+      }
+    </script>
+  </body>
+</html>

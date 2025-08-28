@@ -1,0 +1,509 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import AdminSidenav from "@components/admin/_admin-sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Gestión de Sugerencias | FMH UNACH";
+const path = "../../../dist";
+const mainPage = "sugerencias";
+const page = "sugerencias";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <AdminSidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Gestión de Sugerencias</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Filtros y Búsqueda -->
+            <div class="row mb-4">
+              <div class="col-md-8">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Buscar sugerencias..." id="searchInput">
+                  <button class="btn btn-primary" type="button" id="searchBtn">
+                    <i class="bi bi-search"></i> Buscar
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-4 text-end">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSugerenciaModal">
+                  <i class="bi bi-plus-circle"></i> Nueva Sugerencia
+                </button>
+              </div>
+            </div>
+
+            <!-- Estadísticas Rápidas -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <div class="card bg-success text-white">
+                  <div class="card-body text-center">
+                    <h4 id="totalSugerencias">0</h4>
+                    <p class="mb-0">Total Sugerencias</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                  <div class="card-body text-center">
+                    <h4 id="pendientes">0</h4>
+                    <p class="mb-0">Pendientes</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-info text-white">
+                  <div class="card-body text-center">
+                    <h4 id="enRevision">0</h4>
+                    <p class="mb-0">En Revisión</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                  <div class="card-body text-center">
+                    <h4 id="implementadas">0</h4>
+                    <p class="mb-0">Implementadas</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla de Sugerencias -->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Lista de Sugerencias</h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="sugerenciasTable">
+                    <thead>
+                      <tr>
+                        <th>Folio</th>
+                        <th>Fecha</th>
+                        <th>Remitente</th>
+                        <th>Asunto</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Prioridad</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="sugerenciasTableBody">
+                      <!-- Se llenará dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+
+    <!-- Modal para Nueva Sugerencia -->
+    <div class="modal fade" id="addSugerenciaModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Nueva Sugerencia</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="sugerenciaForm">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Remitente</label>
+                  <input type="text" class="form-control" name="remitente" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" name="email" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Asunto</label>
+                <input type="text" class="form-control" name="asunto" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" name="descripcion" rows="4" required></textarea>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Prioridad</label>
+                  <select class="form-select" name="prioridad" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="baja">Baja</option>
+                    <option value="media">Media</option>
+                    <option value="alta">Alta</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Categoría</label>
+                  <select class="form-select" name="categoria" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="infraestructura">Infraestructura</option>
+                    <option value="academico">Académico</option>
+                    <option value="administrativo">Administrativo</option>
+                    <option value="servicios">Servicios</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" id="saveSugerenciaBtn">Guardar Sugerencia</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Ver/Editar Sugerencia -->
+    <div class="modal fade" id="editSugerenciaModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Sugerencia</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editSugerenciaForm">
+              <input type="hidden" name="id" id="editId">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Remitente</label>
+                  <input type="text" class="form-control" name="remitente" id="editRemitente" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Estado</label>
+                  <select class="form-select" name="estado" id="editEstado" required>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="en_revision">En Revisión</option>
+                    <option value="aprobada">Aprobada</option>
+                    <option value="implementada">Implementada</option>
+                    <option value="rechazada">Rechazada</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Asunto</label>
+                <input type="text" class="form-control" name="asunto" id="editAsunto" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" name="descripcion" id="editDescripcion" rows="4" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Comentarios del Administrador</label>
+                <textarea class="form-control" name="comentarios" id="editComentarios" rows="3"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="updateSugerenciaBtn">Actualizar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+
+      // Datos de ejemplo
+      let sugerencias = [
+        {
+          id: 1,
+          folio: 'SG-2024-001',
+          fecha: '2024-01-20',
+          remitente: 'María López',
+          email: 'maria.lopez@email.com',
+          asunto: 'Mejora en la biblioteca',
+          descripcion: 'Sugiero implementar un sistema de reservas online para los libros más solicitados.',
+          estado: 'pendiente',
+          prioridad: 'media',
+          categoria: 'servicios',
+          comentarios: ''
+        },
+        {
+          id: 2,
+          folio: 'SG-2024-002',
+          fecha: '2024-01-19',
+          remitente: 'Carlos Ruiz',
+          email: 'carlos.ruiz@email.com',
+          asunto: 'Nuevos horarios de consulta',
+          descripcion: 'Sería conveniente extender el horario de consulta hasta las 8 PM para estudiantes que trabajan.',
+          estado: 'en_revision',
+          prioridad: 'alta',
+          categoria: 'academico',
+          comentarios: 'En revisión por el comité académico'
+        },
+        {
+          id: 3,
+          folio: 'SG-2024-003',
+          fecha: '2024-01-18',
+          remitente: 'Ana Martínez',
+          email: 'ana.martinez@email.com',
+          asunto: 'App móvil para estudiantes',
+          descripcion: 'Desarrollar una aplicación móvil para consultar horarios, calificaciones y trámites.',
+          estado: 'aprobada',
+          prioridad: 'alta',
+          categoria: 'tecnologia',
+          comentarios: 'Aprobada para desarrollo en Q2 2024'
+        }
+      ];
+
+      // Inicializar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        actualizarEstadisticas();
+        cargarTabla();
+        configurarEventos();
+      });
+
+      function actualizarEstadisticas() {
+        const total = sugerencias.length;
+        const pendientes = sugerencias.filter(s => s.estado === 'pendiente').length;
+        const enRevision = sugerencias.filter(s => s.estado === 'en_revision').length;
+        const implementadas = sugerencias.filter(s => s.estado === 'implementada').length;
+
+        document.getElementById('totalSugerencias').textContent = total;
+        document.getElementById('pendientes').textContent = pendientes;
+        document.getElementById('enRevision').textContent = enRevision;
+        document.getElementById('implementadas').textContent = implementadas;
+      }
+
+      function cargarTabla() {
+        const tbody = document.getElementById('sugerenciasTableBody');
+        tbody.innerHTML = '';
+
+        sugerencias.forEach(sugerencia => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${sugerencia.folio}</td>
+            <td>${sugerencia.fecha}</td>
+            <td>${sugerencia.remitente}</td>
+            <td>${sugerencia.asunto}</td>
+            <td>${sugerencia.descripcion.substring(0, 50)}...</td>
+            <td><span class="badge ${getEstadoBadgeClass(sugerencia.estado)}">${getEstadoText(sugerencia.estado)}</span></td>
+            <td><span class="badge ${getPrioridadBadgeClass(sugerencia.prioridad)}">${sugerencia.prioridad}</span></td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="verSugerencia(${sugerencia.id})">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-warning" onclick="editarSugerencia(${sugerencia.id})">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="eliminarSugerencia(${sugerencia.id})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function getEstadoBadgeClass(estado) {
+        const clases = {
+          'pendiente': 'bg-warning',
+          'en_revision': 'bg-info',
+          'aprobada': 'bg-success',
+          'implementada': 'bg-primary',
+          'rechazada': 'bg-danger'
+        };
+        return clases[estado] || 'bg-secondary';
+      }
+
+      function getEstadoText(estado) {
+        const textos = {
+          'pendiente': 'Pendiente',
+          'en_revision': 'En Revisión',
+          'aprobada': 'Aprobada',
+          'implementada': 'Implementada',
+          'rechazada': 'Rechazada'
+        };
+        return textos[estado] || estado;
+      }
+
+      function getPrioridadBadgeClass(prioridad) {
+        const clases = {
+          'baja': 'bg-success',
+          'media': 'bg-warning',
+          'alta': 'bg-danger'
+        };
+        return clases[prioridad] || 'bg-secondary';
+      }
+
+      function configurarEventos() {
+        // Búsqueda
+        document.getElementById('searchBtn').addEventListener('click', function() {
+          const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+          const filteredSugerencias = sugerencias.filter(s => 
+            s.asunto.toLowerCase().includes(searchTerm) ||
+            s.remitente.toLowerCase().includes(searchTerm) ||
+            s.descripcion.toLowerCase().includes(searchTerm)
+          );
+          cargarTablaFiltrada(filteredSugerencias);
+        });
+
+        // Guardar nueva sugerencia
+        document.getElementById('saveSugerenciaBtn').addEventListener('click', function() {
+          guardarSugerencia();
+        });
+
+        // Actualizar sugerencia
+        document.getElementById('updateSugerenciaBtn').addEventListener('click', function() {
+          actualizarSugerencia();
+        });
+      }
+
+      function cargarTablaFiltrada(sugerenciasFiltradas) {
+        const tbody = document.getElementById('sugerenciasTableBody');
+        tbody.innerHTML = '';
+
+        sugerenciasFiltradas.forEach(sugerencia => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${sugerencia.folio}</td>
+            <td>${sugerencia.fecha}</td>
+            <td>${sugerencia.remitente}</td>
+            <td>${sugerencia.asunto}</td>
+            <td>${sugerencia.descripcion.substring(0, 50)}...</td>
+            <td><span class="badge ${getEstadoBadgeClass(sugerencia.estado)}">${getEstadoText(sugerencia.estado)}</span></td>
+            <td><span class="badge ${getPrioridadBadgeClass(sugerencia.prioridad)}">${sugerencia.prioridad}</span></td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="verSugerencia(${sugerencia.id})">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-warning" onclick="editarSugerencia(${sugerencia.id})">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="eliminarSugerencia(${sugerencia.id})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function guardarSugerencia() {
+        const form = document.getElementById('sugerenciaForm');
+        const formData = new FormData(form);
+        
+        const nuevaSugerencia = {
+          id: sugerencias.length + 1,
+          folio: `SG-2024-${String(sugerencias.length + 1).padStart(3, '0')}`,
+          fecha: new Date().toISOString().split('T')[0],
+          remitente: formData.get('remitente'),
+          email: formData.get('email'),
+          asunto: formData.get('asunto'),
+          descripcion: formData.get('descripcion'),
+          estado: 'pendiente',
+          prioridad: formData.get('prioridad'),
+          categoria: formData.get('categoria'),
+          comentarios: ''
+        };
+
+        sugerencias.push(nuevaSugerencia);
+        actualizarEstadisticas();
+        cargarTabla();
+        
+        // Cerrar modal y limpiar formulario
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addSugerenciaModal'));
+        modal.hide();
+        form.reset();
+        
+        alert('Sugerencia guardada exitosamente');
+      }
+
+      function verSugerencia(id) {
+        const sugerencia = sugerencias.find(s => s.id === id);
+        if (sugerencia) {
+          alert(`Ver sugerencia: ${sugerencia.asunto}\n\nDescripción: ${sugerencia.descripcion}`);
+        }
+      }
+
+      function editarSugerencia(id) {
+        const sugerencia = sugerencias.find(s => s.id === id);
+        if (sugerencia) {
+          document.getElementById('editId').value = sugerencia.id;
+          document.getElementById('editRemitente').value = sugerencia.remitente;
+          document.getElementById('editAsunto').value = sugerencia.asunto;
+          document.getElementById('editDescripcion').value = sugerencia.descripcion;
+          document.getElementById('editEstado').value = sugerencia.estado;
+          document.getElementById('editComentarios').value = sugerencia.comentarios;
+          
+          const modal = new bootstrap.Modal(document.getElementById('editSugerenciaModal'));
+          modal.show();
+        }
+      }
+
+      function actualizarSugerencia() {
+        const form = document.getElementById('editSugerenciaForm');
+        const formData = new FormData(form);
+        const id = parseInt(formData.get('id'));
+        
+        const index = sugerencias.findIndex(s => s.id === id);
+        if (index !== -1) {
+          sugerencias[index] = {
+            ...sugerencias[index],
+            remitente: formData.get('remitente'),
+            asunto: formData.get('asunto'),
+            descripcion: formData.get('descripcion'),
+            estado: formData.get('estado'),
+            comentarios: formData.get('comentarios')
+          };
+          
+          actualizarEstadisticas();
+          cargarTabla();
+          
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editSugerenciaModal'));
+          modal.hide();
+          
+          alert('Sugerencia actualizada exitosamente');
+        }
+      }
+
+      function eliminarSugerencia(id) {
+        if (confirm('¿Estás seguro de que quieres eliminar esta sugerencia?')) {
+          sugerencias = sugerencias.filter(s => s.id !== id);
+          actualizarEstadisticas();
+          cargarTabla();
+          alert('Sugerencia eliminada exitosamente');
+        }
+      }
+    </script>
+  </body>
+</html>

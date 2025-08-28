@@ -1,0 +1,606 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import AdminSidenav from "@components/admin/_admin-sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Configuración | FMH UNACH";
+const path = "../../../dist";
+const mainPage = "configuracion";
+const page = "configuracion";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <AdminSidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Configuración del Sistema</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Configuración General -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración General</h5>
+                  </div>
+                  <div class="card-body">
+                    <form id="configGeneralForm">
+                      <div class="mb-3">
+                        <label class="form-label">Nombre de la Institución</label>
+                        <input type="text" class="form-control" name="institucion" value="Facultad de Medicina Humana 'Dr. Manuel Velasco Suárez' Campus IV" required>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">URL del Sitio Web</label>
+                        <input type="url" class="form-control" name="urlSitio" value="https://www.unach.mx" required>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Email de Contacto</label>
+                        <input type="email" class="form-control" name="emailContacto" value="contacto@unach.edu.mx" required>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Teléfono de Contacto</label>
+                        <input type="tel" class="form-control" name="telefonoContacto" value="+52 961 123 4567">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Zona Horaria</label>
+                        <select class="form-select" name="zonaHoraria" required>
+                          <option value="America/Mexico_City" selected>México Central (UTC-6)</option>
+                          <option value="America/Tijuana">México Pacífico (UTC-8)</option>
+                          <option value="America/Merida">México Sureste (UTC-5)</option>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración del Sistema</h5>
+                  </div>
+                  <div class="card-body">
+                    <form id="configSistemaForm">
+                      <div class="mb-3">
+                        <label class="form-label">Tiempo de Sesión (minutos)</label>
+                        <input type="number" class="form-control" name="tiempoSesion" value="30" min="15" max="120" required>
+                        <small class="form-text text-muted">Tiempo máximo de inactividad antes de cerrar sesión</small>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Elementos por Página</label>
+                        <select class="form-select" name="elementosPorPagina" required>
+                          <option value="10">10 elementos</option>
+                          <option value="25" selected>25 elementos</option>
+                          <option value="50">50 elementos</option>
+                          <option value="100">100 elementos</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Notificaciones por Email</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="notifEmail" id="notifEmail" checked>
+                          <label class="form-check-label" for="notifEmail">
+                            Habilitar notificaciones por email
+                          </label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Modo de Mantenimiento</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="modoMantenimiento" id="modoMantenimiento">
+                          <label class="form-check-label" for="modoMantenimiento">
+                            Activar modo mantenimiento
+                          </label>
+                        </div>
+                        <small class="form-text text-muted">Solo los administradores podrán acceder al sistema</small>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Configuración de Notificaciones -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración de Notificaciones</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <h6>Notificaciones de Quejas</h6>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifQuejasNuevas" id="notifQuejasNuevas" checked>
+                          <label class="form-check-label" for="notifQuejasNuevas">
+                            Nuevas quejas
+                          </label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifQuejasActualizadas" id="notifQuejasActualizadas" checked>
+                          <label class="form-check-label" for="notifQuejasActualizadas">
+                            Quejas actualizadas
+                          </label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifQuejasResueltas" id="notifQuejasResueltas">
+                          <label class="form-check-label" for="notifQuejasResueltas">
+                            Quejas resueltas
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <h6>Notificaciones de Sugerencias</h6>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifSugerenciasNuevas" id="notifSugerenciasNuevas" checked>
+                          <label class="form-check-label" for="notifSugerenciasNuevas">
+                            Nuevas sugerencias
+                          </label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifSugerenciasAprobadas" id="notifSugerenciasAprobadas" checked>
+                          <label class="form-check-label" for="notifSugerenciasAprobadas">
+                            Sugerencias aprobadas
+                          </label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifSugerenciasImplementadas" id="notifSugerenciasImplementadas">
+                          <label class="form-check-label" for="notifSugerenciasImplementadas">
+                            Sugerencias implementadas
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <h6>Notificaciones de Reconocimientos</h6>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifReconocimientosNuevos" id="notifReconocimientosNuevos" checked>
+                          <label class="form-check-label" for="notifReconocimientosNuevos">
+                            Nuevos reconocimientos
+                          </label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifReconocimientosAprobados" id="notifReconocimientosAprobados" checked>
+                          <label class="form-check-label" for="notifReconocimientosAprobados">
+                            Reconocimientos aprobados
+                          </label>
+                        </div>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" name="notifReconocimientosPublicados" id="notifReconocimientosPublicados">
+                          <label class="form-check-label" for="notifReconocimientosPublicados">
+                            Reconocimientos publicados
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mt-3">
+                      <button type="button" class="btn btn-success" id="guardarNotificacionesBtn">
+                        <i class="bi bi-save"></i> Guardar Configuración de Notificaciones
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Configuración de Seguridad -->
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración de Seguridad</h5>
+                  </div>
+                  <div class="card-body">
+                    <form id="configSeguridadForm">
+                      <div class="mb-3">
+                        <label class="form-label">Longitud Mínima de Contraseña</label>
+                        <input type="number" class="form-control" name="longitudPassword" value="8" min="6" max="20" required>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Requerir Mayúsculas</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="requerirMayusculas" id="requerirMayusculas" checked>
+                          <label class="form-check-label" for="requerirMayusculas">
+                            La contraseña debe contener al menos una mayúscula
+                          </label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Requerir Números</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="requerirNumeros" id="requerirNumeros" checked>
+                          <label class="form-check-label" for="requerirNumeros">
+                            La contraseña debe contener al menos un número
+                          </label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Requerir Caracteres Especiales</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="requerirEspeciales" id="requerirEspeciales">
+                          <label class="form-check-label" for="requerirEspeciales">
+                            La contraseña debe contener al menos un carácter especial
+                          </label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Días de Caducidad de Contraseña</label>
+                        <input type="number" class="form-control" name="diasCaducidadPassword" value="90" min="30" max="365">
+                        <small class="form-text text-muted">0 = Sin caducidad</small>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Respaldo y Restauración</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <label class="form-label">Respaldo Automático</label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="respaldoAutomatico" id="respaldoAutomatico" checked>
+                        <label class="form-check-label" for="respaldoAutomatico">
+                          Habilitar respaldo automático
+                        </label>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Frecuencia de Respaldo</label>
+                      <select class="form-select" name="frecuenciaRespaldo" id="frecuenciaRespaldo">
+                        <option value="diario">Diario</option>
+                        <option value="semanal" selected>Semanal</option>
+                        <option value="mensual">Mensual</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Retención de Respaldos</label>
+                      <select class="form-select" name="retencionRespaldos" id="retencionRespaldos">
+                        <option value="7">7 días</option>
+                        <option value="30" selected>30 días</option>
+                        <option value="90">90 días</option>
+                        <option value="365">1 año</option>
+                      </select>
+                    </div>
+                    <div class="d-grid gap-2">
+                      <button type="button" class="btn btn-warning" id="crearRespaldoBtn">
+                        <i class="bi bi-download"></i> Crear Respaldo Manual
+                      </button>
+                      <button type="button" class="btn btn-info" id="restaurarRespaldoBtn">
+                        <i class="bi bi-upload"></i> Restaurar desde Respaldo
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Configuración de Integración -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Configuración de Integración</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h6>Configuración de Email</h6>
+                        <form id="configEmailForm">
+                          <div class="mb-3">
+                            <label class="form-label">Servidor SMTP</label>
+                            <input type="text" class="form-control" name="smtpServidor" value="smtp.gmail.com">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Puerto SMTP</label>
+                            <input type="number" class="form-control" name="smtpPuerto" value="587">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Email de Envío</label>
+                            <input type="email" class="form-control" name="smtpEmail" value="noreply@unach.edu.mx">
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" name="smtpPassword" placeholder="Ingrese la contraseña">
+                          </div>
+                          <button type="submit" class="btn btn-primary">Guardar Configuración de Email</button>
+                        </form>
+                      </div>
+                      <div class="col-md-6">
+                        <h6>Configuración de API</h6>
+                        <form id="configApiForm">
+                          <div class="mb-3">
+                            <label class="form-label">Clave API</label>
+                            <input type="text" class="form-control" name="apiKey" value="unach_api_key_2024" readonly>
+                            <small class="form-text text-muted">Clave para integración con sistemas externos</small>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">URL de Webhook</label>
+                            <input type="url" class="form-control" name="webhookUrl" placeholder="https://ejemplo.com/webhook">
+                            <small class="form-text text-muted">URL para notificaciones en tiempo real</small>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Límite de Rate</label>
+                            <input type="number" class="form-control" name="rateLimit" value="100" min="10" max="1000">
+                            <small class="form-text text-muted">Solicitudes por minuto</small>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Guardar Configuración de API</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Acciones del Sistema -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Acciones del Sistema</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <button type="button" class="btn btn-warning w-100 mb-2" id="limpiarCacheBtn">
+                          <i class="bi bi-trash"></i> Limpiar Cache
+                        </button>
+                      </div>
+                      <div class="col-md-3">
+                        <button type="button" class="btn btn-info w-100 mb-2" id="optimizarBdBtn">
+                          <i class="bi bi-database"></i> Optimizar Base de Datos
+                        </button>
+                      </div>
+                      <div class="col-md-3">
+                        <button type="button" class="btn btn-success w-100 mb-2" id="verificarSistemaBtn">
+                          <i class="bi bi-check-circle"></i> Verificar Sistema
+                        </button>
+                      </div>
+                      <div class="col-md-3">
+                        <button type="button" class="btn btn-danger w-100 mb-2" id="reiniciarSistemaBtn">
+                          <i class="bi bi-arrow-clockwise"></i> Reiniciar Sistema
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+
+      // Inicializar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        configurarEventos();
+        cargarConfiguracion();
+      });
+
+      function configurarEventos() {
+        // Configuración general
+        document.getElementById('configGeneralForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          guardarConfiguracionGeneral();
+        });
+
+        // Configuración del sistema
+        document.getElementById('configSistemaForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          guardarConfiguracionSistema();
+        });
+
+        // Configuración de email
+        document.getElementById('configEmailForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          guardarConfiguracionEmail();
+        });
+
+        // Configuración de API
+        document.getElementById('configApiForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          guardarConfiguracionApi();
+        });
+
+        // Notificaciones
+        document.getElementById('guardarNotificacionesBtn').addEventListener('click', guardarConfiguracionNotificaciones);
+
+        // Acciones del sistema
+        document.getElementById('limpiarCacheBtn').addEventListener('click', limpiarCache);
+        document.getElementById('optimizarBdBtn').addEventListener('click', optimizarBaseDatos);
+        document.getElementById('verificarSistemaBtn').addEventListener('click', verificarSistema);
+        document.getElementById('reiniciarSistemaBtn').addEventListener('click', reiniciarSistema);
+
+        // Respaldo y restauración
+        document.getElementById('crearRespaldoBtn').addEventListener('click', crearRespaldo);
+        document.getElementById('restaurarRespaldoBtn').addEventListener('click', restaurarRespaldo);
+      }
+
+      function cargarConfiguracion() {
+        // Cargar configuración desde localStorage (simulado)
+        const config = JSON.parse(localStorage.getItem('configuracionSistema')) || {};
+        
+        // Aplicar configuración a los formularios
+        if (config.notificaciones) {
+          Object.keys(config.notificaciones).forEach(key => {
+            const checkbox = document.getElementById(key);
+            if (checkbox) {
+              checkbox.checked = config.notificaciones[key];
+            }
+          });
+        }
+      }
+
+      function guardarConfiguracionGeneral() {
+        const formData = new FormData(document.getElementById('configGeneralForm'));
+        const config = Object.fromEntries(formData.entries());
+        
+        // Simular guardado
+        localStorage.setItem('configuracionGeneral', JSON.stringify(config));
+        mostrarMensaje('Configuración general guardada exitosamente', 'success');
+      }
+
+      function guardarConfiguracionSistema() {
+        const formData = new FormData(document.getElementById('configSistemaForm'));
+        const config = Object.fromEntries(formData.entries());
+        
+        // Simular guardado
+        localStorage.setItem('configuracionSistema', JSON.stringify(config));
+        mostrarMensaje('Configuración del sistema guardada exitosamente', 'success');
+      }
+
+      function guardarConfiguracionEmail() {
+        const formData = new FormData(document.getElementById('configEmailForm'));
+        const config = Object.fromEntries(formData.entries());
+        
+        // Simular guardado
+        localStorage.setItem('configuracionEmail', JSON.stringify(config));
+        mostrarMensaje('Configuración de email guardada exitosamente', 'success');
+      }
+
+      function guardarConfiguracionApi() {
+        const formData = new FormData(document.getElementById('configApiForm'));
+        const config = Object.fromEntries(formData.entries());
+        
+        // Simular guardado
+        localStorage.setItem('configuracionApi', JSON.stringify(config));
+        mostrarMensaje('Configuración de API guardada exitosamente', 'success');
+      }
+
+      function guardarConfiguracionNotificaciones() {
+        const notificaciones = {
+          notifQuejasNuevas: document.getElementById('notifQuejasNuevas').checked,
+          notifQuejasActualizadas: document.getElementById('notifQuejasActualizadas').checked,
+          notifQuejasResueltas: document.getElementById('notifQuejasResueltas').checked,
+          notifSugerenciasNuevas: document.getElementById('notifSugerenciasNuevas').checked,
+          notifSugerenciasAprobadas: document.getElementById('notifSugerenciasAprobadas').checked,
+          notifSugerenciasImplementadas: document.getElementById('notifSugerenciasImplementadas').checked,
+          notifReconocimientosNuevos: document.getElementById('notifReconocimientosNuevos').checked,
+          notifReconocimientosAprobados: document.getElementById('notifReconocimientosAprobados').checked,
+          notifReconocimientosPublicados: document.getElementById('notifReconocimientosPublicados').checked
+        };
+
+        localStorage.setItem('configuracionNotificaciones', JSON.stringify(notificaciones));
+        mostrarMensaje('Configuración de notificaciones guardada exitosamente', 'success');
+      }
+
+      function limpiarCache() {
+        if (confirm('¿Estás seguro de que quieres limpiar el cache del sistema?')) {
+          // Simular limpieza de cache
+          setTimeout(() => {
+            mostrarMensaje('Cache limpiado exitosamente', 'success');
+          }, 1000);
+        }
+      }
+
+      function optimizarBaseDatos() {
+        if (confirm('¿Estás seguro de que quieres optimizar la base de datos? Esto puede tomar varios minutos.')) {
+          // Simular optimización
+          mostrarMensaje('Optimización de base de datos iniciada...', 'info');
+          setTimeout(() => {
+            mostrarMensaje('Base de datos optimizada exitosamente', 'success');
+          }, 3000);
+        }
+      }
+
+      function verificarSistema() {
+        // Simular verificación del sistema
+        mostrarMensaje('Verificación del sistema iniciada...', 'info');
+        
+        setTimeout(() => {
+          const problemas = Math.floor(Math.random() * 3);
+          if (problemas === 0) {
+            mostrarMensaje('Sistema verificado. No se encontraron problemas.', 'success');
+          } else {
+            mostrarMensaje(`Sistema verificado. Se encontraron ${problemas} problema(s) menor(es).`, 'warning');
+          }
+        }, 2000);
+      }
+
+      function reiniciarSistema() {
+        if (confirm('¿Estás seguro de que quieres reiniciar el sistema? Esto cerrará todas las sesiones activas.')) {
+          if (confirm('Esta acción es irreversible. ¿Confirmas el reinicio?')) {
+            mostrarMensaje('Reinicio del sistema iniciado...', 'warning');
+            setTimeout(() => {
+              alert('El sistema se reiniciará en 5 segundos. Serás redirigido a la página de login.');
+              // En producción, aquí se haría el reinicio real
+            }, 2000);
+          }
+        }
+      }
+
+      function crearRespaldo() {
+        if (confirm('¿Deseas crear un respaldo manual del sistema?')) {
+          mostrarMensaje('Creando respaldo del sistema...', 'info');
+          setTimeout(() => {
+            mostrarMensaje('Respaldo creado exitosamente. Archivo: respaldo_' + new Date().toISOString().split('T')[0] + '.zip', 'success');
+          }, 3000);
+        }
+      }
+
+      function restaurarRespaldo() {
+        alert('Función de restauración implementada. En producción, esto permitiría seleccionar un archivo de respaldo para restaurar el sistema.');
+      }
+
+      function mostrarMensaje(mensaje, tipo) {
+        // Crear alerta Bootstrap
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+        alertDiv.innerHTML = `
+          ${mensaje}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+
+        // Insertar al inicio del contenido
+        const contenido = document.querySelector('.app-content');
+        contenido.insertBefore(alertDiv, contenido.firstChild);
+
+        // Auto-ocultar después de 5 segundos
+        setTimeout(() => {
+          if (alertDiv.parentNode) {
+            alertDiv.remove();
+          }
+        }, 5000);
+      }
+    </script>
+  </body>
+</html>

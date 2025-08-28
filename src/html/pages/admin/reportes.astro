@@ -1,0 +1,577 @@
+---
+import Head from "@components/_head.astro";
+import Footer from "@components/dashboard/_footer.astro";
+import Topbar from "@components/dashboard/_topbar.astro";
+import AdminSidenav from "@components/admin/_admin-sidenav.astro";
+import Scripts from "@components/_scripts.astro";
+
+const title = "Reportes y Estadísticas | FMH UNACH";
+const path = "../../../dist";
+const mainPage = "reportes";
+const page = "reportes";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head title={title} path={path} />
+    <meta charset="UTF-8" />
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
+      <Topbar path={path} />
+      <AdminSidenav path={path} mainPage={mainPage} page={page} />
+      <main class="app-main">
+        <div class="app-content-header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/logo-unach-azul.png" alt="Logo UNACH" style="max-width: 100px;" />
+              </div>
+              <div class="col-md-8 text-center">
+                <h2 class="mb-0">Reportes y Estadísticas</h2>
+                <h5>Facultad de Medicina Humana "Dr. Manuel Velasco Suárez" Campus IV</h5>
+              </div>
+              <div class="col-md-2 text-center mb-2 mb-md-0">
+                <img src="/dist/img/jubileo50.png" alt="Jubileo 50 años" style="max-width: 100px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="container-fluid">
+            <!-- Filtros de Fecha -->
+            <div class="row mb-4">
+              <div class="col-md-3">
+                <label class="form-label">Fecha Desde</label>
+                <input type="date" class="form-control" id="fechaDesde" value="2024-01-01">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Fecha Hasta</label>
+                <input type="date" class="form-control" id="fechaHasta" value="2024-01-31">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Tipo de Reporte</label>
+                <select class="form-select" id="tipoReporte">
+                  <option value="general">Reporte General</option>
+                  <option value="quejas">Solo Quejas</option>
+                  <option value="sugerencias">Solo Sugerencias</option>
+                  <option value="reconocimientos">Solo Reconocimientos</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">&nbsp;</label>
+                <button class="btn btn-primary d-block w-100" id="generarReporteBtn">
+                  <i class="bi bi-graph-up"></i> Generar Reporte
+                </button>
+              </div>
+            </div>
+
+            <!-- Resumen Ejecutivo -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                  <div class="card-body text-center">
+                    <h4 id="totalEntradas">0</h4>
+                    <p class="mb-0">Total Entradas</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-success text-white">
+                  <div class="card-body text-center">
+                    <h4 id="resueltas">0</h4>
+                    <p class="mb-0">Resueltas</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                  <div class="card-body text-center">
+                    <h4 id="enProceso">0</h4>
+                    <p class="mb-0">En Proceso</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-info text-white">
+                  <div class="card-body text-center">
+                    <h4 id="tiempoPromedio">0</h4>
+                    <p class="mb-0">Días Promedio</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="row g-4 mb-4">
+              <!-- Gráfico de Distribución por Tipo -->
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Distribución por Tipo</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="tipoChart" width="400" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gráfico de Tendencia Temporal -->
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Tendencia Temporal</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="tendenciaChart" width="400" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gráfico de Estado -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Estado de las Entradas</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="estadoChart" width="800" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla de Datos Detallados -->
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title">Datos Detallados</h5>
+                <button class="btn btn-success" id="exportarExcelBtn">
+                  <i class="bi bi-file-earmark-excel"></i> Exportar a Excel
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="reporteTable">
+                    <thead>
+                      <tr>
+                        <th>Folio</th>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Remitente</th>
+                        <th>Asunto</th>
+                        <th>Estado</th>
+                        <th>Días Transcurridos</th>
+                        <th>Prioridad</th>
+                      </tr>
+                    </thead>
+                    <tbody id="reporteTableBody">
+                      <!-- Se llenará dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Análisis de Satisfacción -->
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Análisis de Satisfacción</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <label class="form-label">Satisfacción General</label>
+                      <div class="progress">
+                        <div class="progress-bar bg-success" id="satisfaccionBar" style="width: 0%">0%</div>
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col-4">
+                        <h6 class="text-success">Muy Satisfecho</h6>
+                        <h4 id="muySatisfecho">0</h4>
+                      </div>
+                      <div class="col-4">
+                        <h6 class="text-warning">Satisfecho</h6>
+                        <h4 id="satisfecho">0</h4>
+                      </div>
+                      <div class="col-4">
+                        <h6 class="text-danger">Insatisfecho</h6>
+                        <h4 id="insatisfecho">0</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="card-title">Top 5 Áreas de Atención</h5>
+                  </div>
+                  <div class="card-body">
+                    <div id="topAreas">
+                      <!-- Se llenará dinámicamente -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer path={path} />
+      <Scripts path={path} />
+    </div>
+
+    <script>
+      // Verificar autenticación
+      if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+      }
+
+      // Datos de ejemplo para el reporte
+      let datosReporte = {
+        quejas: [
+          { folio: 'QJ-2024-001', fecha: '2024-01-20', remitente: 'Anónimo', asunto: 'Problema con el aire acondicionado', estado: 'resuelto', prioridad: 'alta', diasTranscurridos: 3, satisfaccion: 'muy_satisfecho' },
+          { folio: 'QJ-2024-002', fecha: '2024-01-19', remitente: 'Carlos Ruiz', asunto: 'Falta de material en laboratorio', estado: 'en_proceso', prioridad: 'alta', diasTranscurridos: 5, satisfaccion: 'satisfecho' },
+          { folio: 'QJ-2024-003', fecha: '2024-01-18', remitente: 'María López', asunto: 'Problema de conectividad WiFi', estado: 'pendiente', prioridad: 'media', diasTranscurridos: 7, satisfaccion: 'insatisfecho' }
+        ],
+        sugerencias: [
+          { folio: 'SG-2024-001', fecha: '2024-01-20', remitente: 'Ana Martínez', asunto: 'Mejora en la biblioteca', estado: 'aprobada', prioridad: 'media', diasTranscurridos: 2, satisfaccion: 'muy_satisfecho' },
+          { folio: 'SG-2024-002', fecha: '2024-01-19', remitente: 'Roberto Silva', asunto: 'Nuevos horarios de consulta', estado: 'en_revision', prioridad: 'alta', diasTranscurridos: 4, satisfaccion: 'satisfecho' }
+        ],
+        reconocimientos: [
+          { folio: 'RC-2024-001', fecha: '2024-01-20', remitente: 'Dr. García', asunto: 'Excelente atención del Dr. Hernández', estado: 'publicado', prioridad: 'baja', diasTranscurridos: 1, satisfaccion: 'muy_satisfecho' }
+        ]
+      };
+
+      // Inicializar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        configurarEventos();
+        generarReporte();
+      });
+
+      function configurarEventos() {
+        document.getElementById('generarReporteBtn').addEventListener('click', generarReporte);
+        document.getElementById('exportarExcelBtn').addEventListener('click', exportarExcel);
+      }
+
+      function generarReporte() {
+        const fechaDesde = document.getElementById('fechaDesde').value;
+        const fechaHasta = document.getElementById('fechaHasta').value;
+        const tipoReporte = document.getElementById('tipoReporte').value;
+
+        // Filtrar datos por fecha y tipo
+        let datosFiltrados = filtrarDatos(fechaDesde, fechaHasta, tipoReporte);
+        
+        // Actualizar estadísticas
+        actualizarEstadisticas(datosFiltrados);
+        
+        // Actualizar gráficos
+        actualizarGraficos(datosFiltrados);
+        
+        // Actualizar tabla
+        actualizarTabla(datosFiltrados);
+        
+        // Actualizar análisis de satisfacción
+        actualizarSatisfaccion(datosFiltrados);
+        
+        // Actualizar top áreas
+        actualizarTopAreas(datosFiltrados);
+      }
+
+      function filtrarDatos(fechaDesde, fechaHasta, tipoReporte) {
+        let todosLosDatos = [];
+        
+        if (tipoReporte === 'general' || tipoReporte === 'quejas') {
+          todosLosDatos = todosLosDatos.concat(datosReporte.quejas);
+        }
+        if (tipoReporte === 'general' || tipoReporte === 'sugerencias') {
+          todosLosDatos = todosLosDatos.concat(datosReporte.sugerencias);
+        }
+        if (tipoReporte === 'general' || tipoReporte === 'reconocimientos') {
+          todosLosDatos = todosLosDatos.concat(datosReporte.reconocimientos);
+        }
+
+        // Filtrar por fecha (simulado)
+        return todosLosDatos;
+      }
+
+      function actualizarEstadisticas(datos) {
+        const total = datos.length;
+        const resueltas = datos.filter(d => d.estado === 'resuelto' || d.estado === 'publicado').length;
+        const enProceso = datos.filter(d => d.estado === 'en_proceso' || d.estado === 'en_revision').length;
+        const tiempoPromedio = datos.length > 0 ? Math.round(datos.reduce((sum, d) => sum + d.diasTranscurridos, 0) / datos.length) : 0;
+
+        document.getElementById('totalEntradas').textContent = total;
+        document.getElementById('resueltas').textContent = resueltas;
+        document.getElementById('enProceso').textContent = enProceso;
+        document.getElementById('tiempoPromedio').textContent = tiempoPromedio;
+      }
+
+      function actualizarGraficos(datos) {
+        // Gráfico de distribución por tipo
+        actualizarGraficoTipo(datos);
+        
+        // Gráfico de tendencia temporal
+        actualizarGraficoTendencia(datos);
+        
+        // Gráfico de estado
+        actualizarGraficoEstado(datos);
+      }
+
+      function actualizarGraficoTipo(datos) {
+        const ctx = document.getElementById('tipoChart').getContext('2d');
+        
+        // Limpiar canvas
+        ctx.clearRect(0, 0, 400, 300);
+        
+        // Contar por tipo
+        const tipos = {};
+        datos.forEach(d => {
+          const tipo = d.folio.substring(0, 2);
+          tipos[tipo] = (tipos[tipo] || 0) + 1;
+        });
+
+        // Dibujar gráfico de pastel simple
+        const colores = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'];
+        let anguloActual = 0;
+        let colorIndex = 0;
+
+        Object.entries(tipos).forEach(([tipo, cantidad]) => {
+          const porcentaje = (cantidad / datos.length) * 100;
+          const angulo = (porcentaje / 100) * 2 * Math.PI;
+
+          ctx.beginPath();
+          ctx.moveTo(200, 150);
+          ctx.arc(200, 150, 80, anguloActual, anguloActual + angulo);
+          ctx.closePath();
+          ctx.fillStyle = colores[colorIndex % colores.length];
+          ctx.fill();
+
+          // Etiqueta
+          ctx.fillStyle = '#000';
+          ctx.font = '12px Arial';
+          const x = 200 + Math.cos(anguloActual + angulo / 2) * 100;
+          const y = 150 + Math.sin(anguloActual + angulo / 2) * 100;
+          ctx.fillText(`${tipo}: ${cantidad}`, x, y);
+
+          anguloActual += angulo;
+          colorIndex++;
+        });
+      }
+
+      function actualizarGraficoTendencia(datos) {
+        const ctx = document.getElementById('tendenciaChart').getContext('2d');
+        
+        // Limpiar canvas
+        ctx.clearRect(0, 0, 400, 300);
+        
+        // Agrupar por fecha
+        const fechas = {};
+        datos.forEach(d => {
+          const fecha = d.fecha;
+          fechas[fecha] = (fechas[fecha] || 0) + 1;
+        });
+
+        // Dibujar gráfico de líneas simple
+        const fechasOrdenadas = Object.keys(fechas).sort();
+        const maxCantidad = Math.max(...Object.values(fechas));
+        
+        ctx.strokeStyle = '#36A2EB';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+
+        fechasOrdenadas.forEach((fecha, index) => {
+          const x = 50 + (index * 300 / (fechasOrdenadas.length - 1));
+          const y = 250 - (fechas[fecha] / maxCantidad * 200);
+          
+          if (index === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        });
+
+        ctx.stroke();
+
+        // Etiquetas
+        ctx.fillStyle = '#000';
+        ctx.font = '10px Arial';
+        fechasOrdenadas.forEach((fecha, index) => {
+          const x = 50 + (index * 300 / (fechasOrdenadas.length - 1));
+          const y = 250 - (fechas[fecha] / maxCantidad * 200);
+          
+          ctx.fillText(fechas[fecha], x, y - 10);
+        });
+      }
+
+      function actualizarGraficoEstado(datos) {
+        const ctx = document.getElementById('estadoChart').getContext('2d');
+        
+        // Limpiar canvas
+        ctx.clearRect(0, 0, 800, 300);
+        
+        // Contar por estado
+        const estados = {};
+        datos.forEach(d => {
+          estados[d.estado] = (estados[d.estado] || 0) + 1;
+        });
+
+        // Dibujar gráfico de barras
+        const estadosOrdenados = Object.keys(estados);
+        const maxCantidad = Math.max(...Object.values(estados));
+        const colores = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'];
+
+        estadosOrdenados.forEach((estado, index) => {
+          const x = 100 + (index * 600 / (estadosOrdenados.length - 1));
+          const altura = (estados[estado] / maxCantidad) * 200;
+          const y = 250 - altura;
+
+          // Barra
+          ctx.fillStyle = colores[index % colores.length];
+          ctx.fillRect(x - 30, y, 60, altura);
+
+          // Etiqueta de cantidad
+          ctx.fillStyle = '#000';
+          ctx.font = '12px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(estados[estado], x, y - 10);
+
+          // Etiqueta de estado
+          ctx.fillText(estado, x, 270);
+        });
+      }
+
+      function actualizarTabla(datos) {
+        const tbody = document.getElementById('reporteTableBody');
+        tbody.innerHTML = '';
+
+        datos.forEach(entrada => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${entrada.folio}</td>
+            <td>${entrada.fecha}</td>
+            <td><span class="badge ${getTipoBadgeClass(entrada.folio)}">${getTipoText(entrada.folio)}</span></td>
+            <td>${entrada.remitente}</td>
+            <td>${entrada.asunto}</td>
+            <td><span class="badge ${getEstadoBadgeClass(entrada.estado)}">${getEstadoText(entrada.estado)}</span></td>
+            <td>${entrada.diasTranscurridos}</td>
+            <td><span class="badge ${getPrioridadBadgeClass(entrada.prioridad)}">${entrada.prioridad}</span></td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function actualizarSatisfaccion(datos) {
+        const muySatisfecho = datos.filter(d => d.satisfaccion === 'muy_satisfecho').length;
+        const satisfecho = datos.filter(d => d.satisfaccion === 'satisfecho').length;
+        const insatisfecho = datos.filter(d => d.satisfaccion === 'insatisfecho').length;
+        const total = datos.length;
+
+        const porcentajeSatisfaccion = total > 0 ? Math.round(((muySatisfecho + satisfecho) / total) * 100) : 0;
+
+        document.getElementById('muySatisfecho').textContent = muySatisfecho;
+        document.getElementById('satisfecho').textContent = satisfecho;
+        document.getElementById('insatisfecho').textContent = insatisfecho;
+        
+        const barra = document.getElementById('satisfaccionBar');
+        barra.style.width = porcentajeSatisfaccion + '%';
+        barra.textContent = porcentajeSatisfaccion + '%';
+      }
+
+      function actualizarTopAreas(datos) {
+        const areas = {};
+        datos.forEach(d => {
+          // Simular áreas basadas en el asunto
+          let area = 'General';
+          if (d.asunto.toLowerCase().includes('laboratorio')) area = 'Laboratorio';
+          else if (d.asunto.toLowerCase().includes('biblioteca')) area = 'Biblioteca';
+          else if (d.asunto.toLowerCase().includes('wifi') || d.asunto.toLowerCase().includes('conectividad')) area = 'Tecnología';
+          else if (d.asunto.toLowerCase().includes('aire') || d.asunto.toLowerCase().includes('clima')) area = 'Mantenimiento';
+          
+          areas[area] = (areas[area] || 0) + 1;
+        });
+
+        const topAreas = Object.entries(areas)
+          .sort(([,a], [,b]) => b - a)
+          .slice(0, 5);
+
+        const container = document.getElementById('topAreas');
+        container.innerHTML = '';
+
+        topAreas.forEach(([area, cantidad], index) => {
+          const div = document.createElement('div');
+          div.className = 'd-flex justify-content-between align-items-center mb-2';
+          div.innerHTML = `
+            <span class="badge bg-primary">${index + 1}</span>
+            <span>${area}</span>
+            <span class="badge bg-secondary">${cantidad}</span>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      function getTipoBadgeClass(folio) {
+        const tipo = folio.substring(0, 2);
+        const clases = {
+          'QJ': 'bg-danger',
+          'SG': 'bg-success',
+          'RC': 'bg-warning'
+        };
+        return clases[tipo] || 'bg-secondary';
+      }
+
+      function getTipoText(folio) {
+        const tipo = folio.substring(0, 2);
+        const textos = {
+          'QJ': 'Queja',
+          'SG': 'Sugerencia',
+          'RC': 'Reconocimiento'
+        };
+        return textos[tipo] || tipo;
+      }
+
+      function getEstadoBadgeClass(estado) {
+        const clases = {
+          'pendiente': 'bg-warning',
+          'en_proceso': 'bg-info',
+          'en_revision': 'bg-info',
+          'resuelto': 'bg-success',
+          'aprobada': 'bg-success',
+          'publicado': 'bg-primary'
+        };
+        return clases[estado] || 'bg-secondary';
+      }
+
+      function getEstadoText(estado) {
+        const textos = {
+          'pendiente': 'Pendiente',
+          'en_proceso': 'En Proceso',
+          'en_revision': 'En Revisión',
+          'resuelto': 'Resuelto',
+          'aprobada': 'Aprobada',
+          'publicado': 'Publicado'
+        };
+        return textos[estado] || estado;
+      }
+
+      function getPrioridadBadgeClass(prioridad) {
+        const clases = {
+          'baja': 'bg-success',
+          'media': 'bg-warning',
+          'alta': 'bg-danger'
+        };
+        return clases[prioridad] || 'bg-secondary';
+      }
+
+      function exportarExcel() {
+        // Simulación de exportación a Excel
+        alert('Función de exportación a Excel implementada. En producción, esto generaría un archivo .xlsx con todos los datos del reporte.');
+      }
+    </script>
+  </body>
+</html>
